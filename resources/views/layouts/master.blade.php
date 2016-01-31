@@ -24,6 +24,7 @@
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   	<script>
   	var current_question;
+  	var locked = 0;
   	$(document).ready(function(){
 
  		//Hide answer field 
@@ -34,13 +35,14 @@
   		//Display answer field
   		$('.question-button').click(function(){
   			current_question = $(this).attr('id');
-  			//alert(current_question);
-  			$('#lock-row').slideDown('slow');
+   			if(locked == 0)
+	  			$('#lock-row').slideDown('slow');
   		});
 
   		$('#lock').click(function(){
   			alert('Do want to lock Question '+current_question+'?');
   			$('#lock-row').hide();
+  			locked++;
   			$('#answer-row').show();
   			var i = 1;
   			var id;
