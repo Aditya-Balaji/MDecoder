@@ -19,13 +19,14 @@
 			padding:5%;
 		}
 
-		#footer{
+		.footer{
+			position: absolute;
 			bottom: 0;
-			left:0;
-			right: 0;
-			background-color: #F5F5F5;
-			border-top: 1px solid silver;
+			width: 100%;
+			height: 60px;
 			text-align: center;
+			background-color: #E7E7E7;
+			
 		}
 	</style>
 	<title>layout</title>
@@ -176,14 +177,10 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="row" id="footer">
-	<div class="container">
-	<br/><br/>
-		@yield('footer')
-	<br/><br/>
-	</div>
-	</div>
+</div>
+	<footer class="footer">
+	@yield('footer')
+	</footer>
 	
 </body>
 </html>
