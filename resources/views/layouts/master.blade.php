@@ -15,6 +15,18 @@
 			opacity: 0.5;
 			background-color: lightgrey;
 		}
+		#question-body{
+			padding:5%;
+		}
+
+		#footer{
+			bottom: 0;
+			left:0;
+			right: 0;
+			background-color: #F5F5F5;
+			border-top: 1px solid silver;
+			text-align: center;
+		}
 	</style>
 	<title>layout</title>
 	<meta charset="utf-8">
@@ -60,9 +72,26 @@
 </head>
 
 <body>
+
+
+	<nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{{ url('#') }}">
+                    @yield('heading')
+                </a>
+
+            </div>
+        </div>
+    </nav>
+
+    <br/><br/>
+
 	<div class="container">
 		<br/><br/>
-		<div class="panel panel-default">
+		<div class="panel panel-default" id="question-panel">
   			
   			<div class="panel-heading">
   				<ul class="nav nav-pills">
@@ -77,74 +106,84 @@
   			</div>
 
   			<div class="panel-body">
-  				<div class="row">
 
-  				<div class="tab-content">
-					  
-					  <div id="home" class="tab-pane fade in active">
-					    <div class="col-sm-12">
-				  			<b>Instructions:</b> 
-				  			@yield('instructions')
-			  			</div>
-					  </div>
+ 				<div class="row" id="question-body">
 
-					  <div id="Q1" class="tab-pane fade">
-					    <div class="col-sm-12">
-				  			<b>Question(1):</b> @yield('Q1') <br/><br/>
-			  			</div>
-					  </div>
+	  				<div class="tab-content">
+						  
+						  <div id="home" class="tab-pane fade in active">
+						    <div class="col-sm-12">
+					  			<b>Instructions:</b> 
+					  			@yield('instructions')
+				  			</div>
+						  </div>
 
-					  <div id="Q2" class="tab-pane fade">
-					    <div class="col-sm-12">
-				  			<b>Question(2):</b> @yield('Q2') <br/><br/>
-			  			</div>
-					  </div>
+						  <div id="Q1" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>Question(1):</b> @yield('Q1') <br/><br/>
+				  			</div>
+						  </div>
 
-					  <div id="Q3" class="tab-pane fade">
-					    <div class="col-sm-12">
-				  			<b>Question(3):</b> @yield('Q3')<br/><br/>
-			  			</div>
-					  </div>
+						  <div id="Q2" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>Question(2):</b> @yield('Q2') <br/><br/>
+				  			</div>
+						  </div>
 
-					  <div id="Q4" class="tab-pane fade">
-					    <div class="col-sm-12">
-				  			<b>Question(4):</b> @yield('Q4')<br/><br/>
-			  			</div>
-					  </div>
+						  <div id="Q3" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>Question(3):</b> @yield('Q3')<br/><br/>
+				  			</div>
+						  </div>
 
-					  <div id="Q5" class="tab-pane fade">
-					    <div class="col-sm-12">
-				  			<b>Question(5):</b> @yield('Q5')<br/><br/>
-			  			</div>
-					  </div>
+						  <div id="Q4" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>Question(4):</b> @yield('Q4')<br/><br/>
+				  			</div>
+						  </div>
 
-					  <div id="Q6" class="tab-pane fade">
-					    <div class="col-sm-12">
-				  			<b>Question(6):</b> @yield('Q6')<br/><br/>
-			  			</div>
-					  </div>
-	  			</div>
+						  <div id="Q5" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>Question(5):</b> @yield('Q5')<br/><br/>
+				  			</div>
+						  </div>
 
-	  			<div id="answer-row">
-		  			<div class="col-sm-4">
-			  			<div class="form-group" id="answer">
-			  				<label for="answer">Answer:</label>
-			  				<input type="number" name="answer" class="form-control" id="answer">
+						  <div id="Q6" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>Question(6):</b> @yield('Q6')<br/><br/>
+				  			</div>
+						  </div>
+		  			</div>
+
+		  			<div id="answer-row">
+			  			<div class="col-sm-4">
+				  			<div class="form-group" id="answer">
+				  				<label for="answer">Answer:</label>
+				  				<input type="number" name="answer" class="form-control" id="answer">
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<br/>
+							<button type="submit" class="btn btn-lg btn-default">Submit</button>
 						</div>
 					</div>
-					<div class="col-sm-3">
-						<br/>
-						<button type="submit" class="btn btn-lg btn-default">Submit</button>
-					</div>
-				</div>
 
-				<div id="lock-row">	
-					<div class="col-md-2 col-md-offset-5">
-						<button id="lock" class="btn btn-lg btn-default">Lock</button>
+					<div id="lock-row">	
+						<div class="col-md-2 col-md-offset-5">
+							<button id="lock" class="btn btn-lg btn-default">Lock</button>
+						</div>
 					</div>
-				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
+
+	<div class="row" id="footer">
+	<div class="container">
+	<br/><br/>
+		@yield('footer')
+	<br/><br/>
+	</div>
+	</div>
+	
 </body>
 </html>
