@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/layout',function(){
 	return view('sample-layout');
 });
+
+
+Route::post('/getquestion','API@request_question');
