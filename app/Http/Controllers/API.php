@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use DB;
+use App\Question;
 use App\Http\Controllers\Controller;
 
 class API extends Controller
@@ -15,7 +15,7 @@ class API extends Controller
 
     public function request_question(Request $request){
 
-    	$question = DB::table('questions')->where('day',$request->day)->get();
+    	$question = Question::where('day',$request->day)->get();
     	$data = [];
 
 
