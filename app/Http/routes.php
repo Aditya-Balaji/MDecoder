@@ -21,3 +21,4 @@ Route::get('/layout',function(){
 
 
 Route::post('/getquestion','API@request_question');
+Route::post('/triesleft','API@tries_available');
