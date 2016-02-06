@@ -58,18 +58,16 @@ class API extends Controller
                                       ->first();
                 
                 if($question){
-                    $tried_question = Tries::where('PID',$question->PID)
-                                 ->where('QID',$question->QID)
-                                 ->get();           
-
+                    
                     $data['status'] = 200;
                     $data['description'] = 'success';
-                    $data['tries'] = $tried_question;   
+                    $data['tries'] = $question;   
+                
                 }                      
                 
                 else {
                     $data['status'] = 101;
-                    $data['description'] = 'No question locked';
+                    $data['description'] = 'Question not locked';
                 }
 
             }
