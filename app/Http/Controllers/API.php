@@ -58,7 +58,8 @@ class API extends Controller
 
 public function request_answer(Request $request){
 
-        $answer = Question::where('day',$request->day)->where('qpos',$request->qpos)->first();
+        $result = Question::where('day',$request->day)->where('qpos',$request->qpos)->where('answer',$request->answer)
+                                                      ->first();
         $data= [];
 
 
@@ -66,17 +67,17 @@ public function request_answer(Request $request){
         {
         
 
-                if($answer['answer']!=null)
+                if($result['answer']==$request->answer)
                 {
                   $data['status'] = 200;
                   $data['description'] = 'success';
-                  $data['answer'] = $answer['answer'];
+                  $data['result'] = '1';
                 }
                 else
                 {
                 
                   $data['status'] = 101;
-                  $data['description'] = 'Wrong qpos-day combination';
+                  $data['description'] = '0';
                 }
             
 
@@ -86,7 +87,7 @@ public function request_answer(Request $request){
            {
             
             $data['status'] = 102;
-            $data['description'] = 'Request Error : This request requires parameters-date and qpos';
+            $data['description'] = 'Request Error : This request requires parameters-date,answer and qpos';
            
            }
         return json_encode($data);
@@ -97,8 +98,9 @@ public function request_answer(Request $request){
  public function request_locked(Request $request){
 
             $locked = Lockedquestion::where('day',$request->day)->where('PID',$request->PID)
-                                                                ->lists('QID');
+                                                                ->pluck('QID');
         
+            $question=Question::where('QID',$locked)->where('day',$request->day)->pluck('qpos');        
            $data = [];
 
 
@@ -108,13 +110,13 @@ public function request_answer(Request $request){
             {
                 $data['status'] = 200;
                 $data['description'] = 'success';
-            if($locked=='[]')
+            if($question=='[]')
                {
                 $data['lockedquestion'] = 0;
                }  
             else
                { 
-                $data['lockedquestion'] = $locked;
+                $data['lockedquestion'] = $question;
                 }
             }
             else {
