@@ -17,7 +17,7 @@ class CreateLockedquestionsTable extends Migration
             $table->integer('PID')->unsigned();           
             $table->integer('QID')->unsigned()->default(NULL);
             $table->integer('day');
-            $table->integer('try_count');
+            $table->integer('try_count')->default(3);
             $table->integer('successful')->unsigned()->default(NULL);
             $table->timestamps();
 
