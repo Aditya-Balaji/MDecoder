@@ -53,7 +53,8 @@
   		});
 
   		$('#lock').click(function(){
-  			alert('Do want to lock Question '+current_question+'?');
+  			var confirm = prompt('Do want to lock Question '+current_question+' (Y/N)?');
+  			if(confirm == 'Y'|| confirm == 'y'){
   			$('#lock-row').hide();
   			locked++;
   			$('#answer-row').show();
@@ -64,6 +65,8 @@
   					id = '#'+i;
   					$(id).attr('class','not-active');
   				}
+  			}
+
   			
   		});
 
