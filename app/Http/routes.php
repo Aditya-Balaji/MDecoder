@@ -19,6 +19,6 @@ Route::get('/layout',function(){
 	return view('sample-layout');
 });
 
-
+//API routes ...
 Route::post('/getquestion','API@request_question');
 Route::post('/triesleft','API@tries_available');
