@@ -21,4 +21,7 @@ Route::get('/layout',function(){
 
 //API routes ...
 Route::post('/getquestion','API@request_question');
+Route::post('/answer','API@request_answer');
+Route::post('/locked','API@request_locked');
 Route::post('/triesleft','API@tries_available');
+
