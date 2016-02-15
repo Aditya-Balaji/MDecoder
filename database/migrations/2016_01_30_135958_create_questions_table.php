@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->string('difficulty');
             $table->integer('day');
             $table->integer('answer');
-            $table->integer('count');
+            $table->integer('count')->default(3);
             $table->timestamps();
         });
     }
