@@ -32,6 +32,7 @@
 	<title>layout</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<meta name="csrf-token" value="{{ csrf_token() }}">
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -40,6 +41,7 @@
   	var locked = 0;
   	$(document).ready(function(){
 
+  		
  		//Hide answer field 
   		$('#instructions').click(function(){
   			$('#lock-row').slideUp('slow');
@@ -52,6 +54,7 @@
 	  			$('#lock-row').slideDown('slow');
   		});
 
+  		//Lock a Question 
   		$('#lock').click(function(){
   			var confirm = prompt('Do want to lock Question '+current_question+' (Y/N)?');
   			if(confirm == 'Y'|| confirm == 'y'){
@@ -124,37 +127,37 @@
 
 						  <div id="Q1" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(1):</b> @yield('Q1') <br/><br/>
+					  			<b>Question(1):</b> <span id="Q1">@yield('Q1')</span> <br/><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q2" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(2):</b> @yield('Q2') <br/><br/>
+					  			<b>Question(2):</b> <span id="Q2">@yield('Q2')</span> <br/><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q3" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(3):</b> @yield('Q3')<br/><br/>
+					  			<b>Question(3):</b> <span id="Q3">@yield('Q3')</span> <br/><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q4" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(4):</b> @yield('Q4')<br/><br/>
+					  			<b>Question(4):</b> <span id="Q4">@yield('Q4')</span><br/><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q5" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(5):</b> @yield('Q5')<br/><br/>
+					  			<b>Question(5):</b><span id="Q5">@yield('Q5')</span><br/><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q6" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(6):</b> @yield('Q6')<br/><br/>
+					  			<b>Question(6):</b><span id="Q6">@yield('Q6')</span><br/><br/>
 				  			</div>
 						  </div>
 		  			</div>

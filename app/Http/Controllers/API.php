@@ -28,7 +28,7 @@ class API extends Controller
 
     }
 
-
+    //Accepts parameters 'day' and 'user_id'
     public function request_question(Request $request)
     {
 
@@ -154,16 +154,15 @@ public function request_answer(Request $request)
     
     }
 
- public function request_locked(Request $request){
+ public function request_locked(Request $request)
+ {
 
             $locked = Lockedquestion::where('day',$request->day)->where('PID',$request->PID)
                                                                 ->pluck('QID');
         
             $question=Question::where('QID',$locked)->where('day',$request->day)->pluck('qpos');        
            $data = [];
-
-
-        if(isset($request->day) && isset($request->PID)) {
+     if(isset($request->day) && isset($request->PID)) {
         
             if($request->day == $this->get_day() && $this->user_check($request->PID))
             {
@@ -190,15 +189,13 @@ public function request_answer(Request $request)
             $data['description'] = 'Request Error : This request requires parameters-day and user_id';
         }
         return json_encode($data);
-        
-    
-    }
+ }
 
     
 
 
 
-    public function tries_available(Request $request){
+public function tries_available(Request $request){
 
         $data = [];
 
@@ -238,6 +235,8 @@ public function request_answer(Request $request)
         
         return json_encode($data);
 
-    }
+    }    
 
 }
+
+
