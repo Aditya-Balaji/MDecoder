@@ -9,7 +9,6 @@ use App\User;
 use App\Lockedquestion;
 
 use App\Http\Controllers\Controller;
-use App\Lockedquestion;
 use App\Tries;
 
 class API extends Controller
@@ -29,7 +28,7 @@ class API extends Controller
 
     }
 
-
+    //Accepts parameters 'day' and 'user_id'
     public function request_question(Request $request)
     {
 
@@ -136,11 +135,7 @@ public function request_answer(Request $request){
     
     }
 
-    
-
-}
-
-    public function tries_available(Request $request){
+public function tries_available(Request $request){
 
         $data = [];
 
@@ -180,6 +175,9 @@ public function request_answer(Request $request){
         
         return json_encode($data);
 
-    }
+    }    
 
 }
+
+
+

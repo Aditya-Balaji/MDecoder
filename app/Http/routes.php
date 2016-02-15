@@ -19,6 +19,7 @@ Route::get('/layout',function(){
 	return view('sample-layout');
 });
 
+Route::post('/test',function(){return 21;});
 //API routes ...
 Route::post('/getquestion','API@request_question');
 Route::post('/answer','API@request_answer');
