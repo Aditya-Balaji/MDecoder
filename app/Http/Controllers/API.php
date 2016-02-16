@@ -58,27 +58,85 @@ class API extends Controller
     	
     }
 
-public function request_answer(Request $request){
+public function request_answer(Request $request)
+{
 
-        $answer = Question::where('day',$request->day)->where('qpos',$request->qpos)->first();
+        $result = Question::where('day',$request->day)->where('qpos',$request->qpos)
+                                                      ->first();
         $data= [];
 
+        $try_count_check=Lockedquestion::where('PID',$request->PID)->where('day',$request->day)
+                                                                   ->where('QID',$result['QID'])
+                                                                   ->pluck('try_count');
+        
+        $success_check=Lockedquestion::where('PID',$request->PID)->where('day',$request->day)
+                                                                   ->where('QID',$result['QID'])
+                                                                   ->pluck('successful');
+        if($try_count_check<=0 || $success_check==null)  
+           {
 
-        if(isset($request->day) && isset($request->qpos))
+             $data['status'] = 103;
+             $data['description'] = "Already Answered or Tries Limit Reached";
+
+
+
+           }                                                            
+
+        elseif(isset($request->day) && isset($request->qpos))
         {
         
 
-                if($answer['answer']!=null)
-                {
+                if($result['answer']==$request->answer)
+                { 
+                
+                //updates QID in locked_questions table
+                  Lockedquestion::where('PID',$request->PID)->where('day',$request->day)->decrement('try_count',1,['QID' => $result['QID']]);
+                 //plucks the corresponding try_count column
+                  $try_count=Lockedquestion::where('PID',$request->PID)->where('day',$request->day)->pluck('try_count');
+                
+                //inserts a new row in tries table
+                //uses $try_count to fill try_no column
+                $try_no=3-$try_count;
+                $try=new Tries;
+                $try->PID=$request->PID;
+                $try->QID=$result['QID'];
+                $try->answer=$result['answer'];
+                $try->try_no=$try_no;
+                $try->save();
+                
+               //plucks TID of the row inserted above
+                $TID=Tries::where('PID',$request->PID)->where('QID',$result['QID'])
+                                                             ->where('try_no',$try_no)
+                                                             ->pluck('TID');
+                //updates locked_questions table successful=$TID 
+                Lockedquestion::where('PID',$request->PID)->where('day',$request->day)
+                                                           ->update(['successful' =>$TID]);
+                
                   $data['status'] = 200;
                   $data['description'] = 'success';
-                  $data['answer'] = $answer['answer'];
+                  $data['result'] = '1';
                 }
-                else
+
+            elseif($result['answer']!=$request->answer)
                 {
+                     
+                  Lockedquestion::where('PID',$request->PID)->where('day',$request->day)->decrement('try_count',1,['QID' => $result['QID']]);
+                  $try_count=Lockedquestion::where('PID',$request->PID)->where('day',$request->day)->pluck('try_count');
                 
+                //inserts a new row in tries table
+                //uses $try_count to fill try_no column
+                $try_no=3-$try_count;
+                $try=new Tries;
+                $try->PID=$request->PID;
+                $try->QID=$result['QID'];
+                $try->answer=$request->answer;
+                $try->try_no=$try_no;
+                $try->save();
+
+
+
                   $data['status'] = 101;
-                  $data['description'] = 'Wrong qpos-day combination';
+                  $data['description'] = 0;
                 }
             
 
@@ -88,7 +146,7 @@ public function request_answer(Request $request){
            {
             
             $data['status'] = 102;
-            $data['description'] = 'Request Error : This request requires parameters-date and qpos';
+            $data['description'] = 'Request Error : This request requires parameters-date,answer and qpos';
            
            }
         return json_encode($data);
@@ -96,27 +154,27 @@ public function request_answer(Request $request){
     
     }
 
- public function request_locked(Request $request){
+ public function request_locked(Request $request)
+ {
 
             $locked = Lockedquestion::where('day',$request->day)->where('PID',$request->PID)
-                                                                ->lists('QID');
+                                                                ->pluck('QID');
         
+            $question=Question::where('QID',$locked)->where('day',$request->day)->pluck('qpos');        
            $data = [];
-
-
-        if(isset($request->day) && isset($request->PID)) {
+     if(isset($request->day) && isset($request->PID)) {
         
             if($request->day == $this->get_day() && $this->user_check($request->PID))
             {
                 $data['status'] = 200;
                 $data['description'] = 'success';
-            if($locked=='[]')
+            if($question=='[]')
                {
                 $data['lockedquestion'] = 0;
                }  
             else
                { 
-                $data['lockedquestion'] = $locked;
+                $data['lockedquestion'] = $question;
                 }
             }
             else {
@@ -131,9 +189,11 @@ public function request_answer(Request $request){
             $data['description'] = 'Request Error : This request requires parameters-day and user_id';
         }
         return json_encode($data);
-        
+ }
+
     
-    }
+
+
 
 public function tries_available(Request $request){
 
@@ -178,6 +238,5 @@ public function tries_available(Request $request){
     }    
 
 }
-
 
 
