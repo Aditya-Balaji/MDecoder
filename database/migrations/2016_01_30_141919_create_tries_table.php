@@ -20,8 +20,6 @@ class CreateTriesTable extends Migration
             $table->integer('try_no');
             $table->timestamps();
 
-            $table->foreign('PID')->references('PID')->on('users');
-            $table->foreign('QID')->references('QID')->on('questions');
         });
     }
 

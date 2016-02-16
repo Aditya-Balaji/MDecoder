@@ -14,6 +14,7 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         '/test',
         '/locked',
+        '/lock',
         '/answer',
         '/getquestion',
         '/triesleft'

@@ -34,12 +34,15 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+	
+	//AJAX headers
 	$.ajaxSetup({
   			headers: {
     		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   			}
 		});
 
+	//AJAX for retrieving questions
   		$.ajax({
   			dataType: "json",
 	        url: "getquestion",
@@ -60,5 +63,26 @@ $(document).ready(function(){
 	            alert("error!");
 	        }
     	});
+
+  	//AJAX to lock the question
+  	$('#lock').click(function(){
+		$.ajax({
+  			dataType: "json",
+	        url: "lock",
+	        type:"POST",
+	        data: {
+	         user_id : 1,
+	         day : 1,
+	         qpos : current_question,
+	     	},
+	        success:function(data){
+	           alert('Succesfully Locked!'); 
+	        },error:function(){ 
+	            alert("error!");
+	        }
+    	})  		
+  	});
+
+  	
  });
 </script>

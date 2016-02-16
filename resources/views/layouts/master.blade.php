@@ -166,12 +166,12 @@
 			  			<div class="col-sm-4">
 				  			<div class="form-group" id="answer">
 				  				<label for="answer">Answer:</label>
-				  				<input type="number" name="answer" class="form-control" id="answer">
+				  				<input type="number" name="answer" class="form-control" id="answer_input">
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<br/>
-							<button type="submit" class="btn btn-lg btn-default">Submit</button>
+							<button type="submit" id="submit_answer" class="btn btn-lg btn-default">Submit</button>
 						</div>
 					</div>
 

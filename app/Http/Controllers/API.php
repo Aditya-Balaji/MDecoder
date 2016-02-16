@@ -58,6 +58,7 @@ class API extends Controller
     	
     }
 
+//Accepts 'qpos','PID','day','answer'
 public function request_answer(Request $request)
 {
 
@@ -157,11 +158,11 @@ public function request_answer(Request $request)
  public function request_locked(Request $request)
  {
 
-            $locked = Lockedquestion::where('day',$request->day)->where('PID',$request->PID)
+          $locked = Lockedquestion::where('day',$request->day)->where('PID',$request->PID)
                                                                 ->pluck('QID');
         
-            $question=Question::where('QID',$locked)->where('day',$request->day)->pluck('qpos');        
-           $data = [];
+          $question=Question::where('QID',$locked)->where('day',$request->day)->pluck('qpos');        
+          $data = [];
      if(isset($request->day) && isset($request->PID)) {
         
             if($request->day == $this->get_day() && $this->user_check($request->PID))
@@ -235,6 +236,27 @@ public function tries_available(Request $request){
         
         return json_encode($data);
 
+    }
+
+    /*
+    Accepts:  
+    'user_id',
+    'qpos'
+    'day',
+    */
+    public function lock_question(Request $request){
+      
+      //get the corresponding question with day and qpos
+      $question = Question::where('day',$request->day)
+                          ->where('qpos',$request->qpos)
+                          ->get();
+
+      //update that question into LockedQuestions table
+      $lock = new Lockedquestion();
+      $lock->PID = $request->user_id;
+      $lock->QID = $question->QID;
+      $lock->day = $request->day;
+      $lock->save();  
     }    
 
 }
