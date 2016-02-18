@@ -49,12 +49,13 @@
 
   		//Display answer field
   		$('.question-button').click(function(){
+  			//alert('clickwe');
   			current_question = $(this).attr('id');
    			if(locked == 0)
 	  			$('#lock-row').slideDown('slow');
+  			else
+  				$('#answer-row').slideDown('slow');
   		});
-
-  		//Lock a Question 
 
 
   	});

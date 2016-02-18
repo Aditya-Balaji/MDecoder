@@ -62,6 +62,7 @@ $(document).ready(function(){
 	           	$("#Q6").text(data['questions'][5]['question']); 
 	        	
 	        	if(data['status'] == 104){
+	  				locked++;
 	        		var i = 1;
 	  				var id;
 	  				for(i;i<=6;i++)
