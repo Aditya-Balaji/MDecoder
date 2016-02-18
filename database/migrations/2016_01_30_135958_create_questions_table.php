@@ -17,6 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->string('question');
             $table->string('difficulty');
             $table->integer('day');
+            $table->integer('qpos');
             $table->integer('answer');
             $table->integer('count')->default(3);
             $table->timestamps();

@@ -15,16 +15,12 @@ class CreateLockedquestionsTable extends Migration
         Schema::create('lockedquestions', function (Blueprint $table) {
             $table->increments('LID');
             $table->integer('PID')->unsigned();           
-            $table->integer('QID')->unsigned()->default(NULL);
+            $table->integer('QID')->unsigned();
             $table->integer('day');
             $table->integer('try_count')->default(3);
             $table->integer('successful')->unsigned()->default(NULL);
             $table->timestamps();
 
-            //Foreign KEYS ...    
-            $table->foreign('PID')->references('PID')->on('users');
-            $table->foreign('QID')->references('QID')->on('questions');
-            $table->foreign('successful')->references('TID')->on('tries');
         });
     }
 
