@@ -55,23 +55,7 @@
   		});
 
   		//Lock a Question 
-  		$('#lock').click(function(){
-  			var confirm = prompt('Do want to lock Question '+current_question+' (Y/N)?');
-  			if(confirm == 'Y'|| confirm == 'y'){
-  			$('#lock-row').hide();
-  			locked++;
-  			$('#answer-row').show();
-  			var i = 1;
-  			var id;
-  			for(i;i<=6;i++)
-  				if(current_question != i){
-  					id = '#'+i;
-  					$(id).attr('class','not-active');
-  				}
-  			}
 
-  			
-  		});
 
   	});
 
