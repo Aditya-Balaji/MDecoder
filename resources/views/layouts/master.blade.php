@@ -176,8 +176,9 @@
 					</div>
 
 					<div id="lock-row">	
+						<hr/>
 						<div class="col-md-2 col-md-offset-5">
-							<button id="lock" class="btn btn-lg btn-default" data-toggle="modal" data-target="#myModal">Lock</button>
+							<button id="lock" class="btn btn-lg btn-default" data-toggle="modal" data-target="#lock_modal">Lock</button>
 						</div>
 					</div>
 			</div>
@@ -186,11 +187,11 @@
 </div>
 	
 	
-	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
+	
+	<div id="lock_modal" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
 
-    	  <!-- Modal content-->
+    	  
 	    	<div class="modal-content">
 	      		<div class="modal-header">
 	        		<button type="button" class="close" data-dismiss="modal">&times;</button>
