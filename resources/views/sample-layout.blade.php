@@ -54,12 +54,12 @@ $(document).ready(function(){
 	     	},
 	        success:function(data){
 
-		        $("#Q1").text(data['questions'][0]['question']); 
-		        $("#Q2").text(data['questions'][1]['question']); 
-	   	        $("#Q3").text(data['questions'][2]['question']); 
-	   		    $("#Q4").text(data['questions'][3]['question']); 
-	           	$("#Q5").text(data['questions'][4]['question']); 
-	           	$("#Q6").text(data['questions'][5]['question']); 
+		        $("#Q1").html("<u><b>Question 1:</b></u><br/> "+data['questions'][0]['question']); 
+		        $("#Q2").html("<u><b>Question 2:</b></u><br/> "+data['questions'][1]['question']); 
+	   	        $("#Q3").html("<u><b>Question 3:</b></u><br/> "+data['questions'][2]['question']); 
+	   		    $("#Q4").html("<u><b>Question 4:</b></u><br/> "+data['questions'][3]['question']); 
+	           	$("#Q5").html("<u><b>Question 5:</b></u><br/> "+data['questions'][4]['question']); 
+	           	$("#Q6").html("<u><b>Question 6:</b></u><br/> "+data['questions'][5]['question']); 
 	        	
 	        	if(data['status'] == 104){
 	  				locked++;
@@ -81,7 +81,7 @@ $(document).ready(function(){
   	$('#lock').click(function(){
   		var confirm = prompt('Do want to lock Question '+current_question+' (Y/N)?');
   		if(confirm == 'Y'|| confirm == 'y'){
-	  		$('#lock-row').hide();
+	  		$('#lock-row').slideUp();
 	  		locked++;
 	  		$.ajax({
 	  			dataType: "json",
@@ -98,7 +98,7 @@ $(document).ready(function(){
 		            alert("error!");
 		        }
 	    	});
-	  		$('#answer-row').show();
+	  		$('#answer-row').slideDown('slow');
 	  		var i = 1;
 	  		var id;
 	  		for(i;i<=6;i++)
