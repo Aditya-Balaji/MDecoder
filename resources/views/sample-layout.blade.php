@@ -59,8 +59,8 @@ $(document).ready(function(){
 	   	        $("#Q3").html("<u><b>Question 3:</b></u><br/> "+data['questions'][2]['question']); 
 	   		    $("#Q4").html("<u><b>Question 4:</b></u><br/> "+data['questions'][3]['question']); 
 	           	$("#Q5").html("<u><b>Question 5:</b></u><br/> "+data['questions'][4]['question']); 
-	           	$("#Q6").html("<u><b>Question 6:</b></u><br/> "+data['questions'][5]['question']); 
-	        	
+	           	$("#Q6").html("<u><b>Question 6:</b></u><br/> "+data['questions'][5]['question']);
+	           
 	        	if(data['status'] == 104){
 	  				locked++;
 	        		var i = 1;
@@ -76,12 +76,12 @@ $(document).ready(function(){
 	            alert("error!");
 	        }
     	});
-
+	
   	//AJAX to lock the question
-  	$('#lock').click(function(){
-  		var confirm = prompt('Do want to lock Question '+current_question+' (Y/N)?');
+  	$('#confirm_lock').click(function(){
+  		var confirm = $('#confirm').val();
   		if(confirm == 'Y'|| confirm == 'y'){
-	  		$('#lock-row').slideUp();
+	  		$('#lock-row').fadeOut();
 	  		locked++;
 	  		$.ajax({
 	  			dataType: "json",
@@ -98,7 +98,7 @@ $(document).ready(function(){
 		            alert("error!");
 		        }
 	    	});
-	  		$('#answer-row').slideDown('slow');
+	  		$('#answer-row').fadeIn('slow');
 	  		var i = 1;
 	  		var id;
 	  		for(i;i<=6;i++)
@@ -124,7 +124,9 @@ $(document).ready(function(){
 	         answer : user_answer,
 	     	},
 	        success:function(data){
-	           alert(data); 
+
+	            $.toaster({ priority : data['color'], title : '<strong>Message</strong>', message : data['description']}); 
+	        
 	        },error:function(){ 
 	            alert("error!");
 	        }

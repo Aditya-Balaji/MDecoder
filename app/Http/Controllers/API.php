@@ -108,13 +108,20 @@ public function request_answer(Request $request)
         //return $locked;
         
         //return $result->QID;
-        if($locked->try_count <= 0 || $locked->successful != 0)  
+        if($locked->try_count <= 0)  
            {
 
-             $data['status'] = 103;
-             $data['description'] = "Already Answered or Tries Limit Reached";
+             $data['status'] = 102;
+             $data['color'] = 'warning';
+             $data['description'] = "your're outta tries!! :O";
 
-           }                                                            
+           }
+
+        elseif($locked->successful != 0){
+             $data['status'] = 103;
+             $data['color'] = 'info';
+             $data['description'] = "You have already answered this question!! :)";
+        }                                                            
 
         elseif(isset($request->day) && isset($request->qpos))
         {
@@ -155,7 +162,8 @@ public function request_answer(Request $request)
                               ->update(['successful' =>$TID]);
                 
                   $data['status'] = 200;
-                  $data['description'] = 'success';
+                  $data['color'] = 'success';
+                  $data['description'] = 'Correct Answer!! :)';
                   $data['result'] = '1';
                 }
 
@@ -181,7 +189,8 @@ public function request_answer(Request $request)
 
 
                   $data['status'] = 101;
-                  $data['description'] = 0;
+                  $data['color'] = 'danger';
+                  $data['description'] = 'Wrong Answer!! :(';
                 }
             
 
@@ -190,7 +199,8 @@ public function request_answer(Request $request)
         else
            {
             
-            $data['status'] = 102;
+            $data['status'] = 105;
+            $data['color'] = 'info';
             $data['description'] = 'Request Error : This request requires parameters-date,answer and qpos';
            
            }

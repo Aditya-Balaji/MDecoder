@@ -25,7 +25,7 @@
 		#main-box{
 			margin-top: 2%;
 		}
-	
+
 	</style>
 	<title>layout</title>
 	<meta charset="utf-8">
@@ -35,6 +35,7 @@
   	<link rel="stylesheet" href="css/sticky-footer-navbar.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  	<script src="js/jquery.toaster.js"></script>
   	<script>
   	var current_question;
   	var locked = 0;
@@ -44,9 +45,9 @@
  		//Hide answer field 
   		$('#instructions').click(function(){
   			if(locked == 0)
-  				$('#lock-row').slideUp('slow');
+  				$('#lock-row').fadeOut('slow');
   			else 
-  				$('#answer-row').slideUp('slow');
+  				$('#answer-row').fadeOut('slow');
   		});
 
   		//Display answer field
@@ -54,11 +55,12 @@
   			//alert('clickwe');
   			current_question = $(this).attr('id');
    			if(locked == 0)
-	  			$('#lock-row').slideDown('slow');
+	  			$('#lock-row').fadeIn('slow');
   			else
-  				$('#answer-row').slideDown('slow');
+  				$('#answer-row').fadeIn('slow');
   		});
 
+  		
 
   	});
 
@@ -66,6 +68,9 @@
 </head>
 
 <body>
+
+
+
 
 
 	<nav class="navbar navbar-default">
@@ -96,6 +101,7 @@
 				  <li><a data-toggle="pill" id='4' class="question-button" href="#Q4">Question 4</a></li>
 				  <li><a data-toggle="pill" id='5' class="question-button" href="#Q5">Question 5</a></li>
 				  <li><a data-toggle="pill" id='6' class="question-button" href="#Q6">Question 6</a></li>
+				  <li><a data-toggle="pill" id='7' class="question-button" href="#Q7">Bonus</a></li>
 				</ul>
   			</div>
 
@@ -147,6 +153,12 @@
 					  			<b>Question(6):</b><span id="Q6">@yield('Q6')</span><br/>
 				  			</div>
 						  </div>
+
+						  <div id="Q7" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>Question(7):</b><span id="Q6">@yield('Q7')</span><br/>
+				  			</div>
+						  </div>
 		  			</div>
 
 		  			<div id="answer-row">
@@ -165,7 +177,7 @@
 
 					<div id="lock-row">	
 						<div class="col-md-2 col-md-offset-5">
-							<button id="lock" class="btn btn-lg btn-default">Lock</button>
+							<button id="lock" class="btn btn-lg btn-default" data-toggle="modal" data-target="#myModal">Lock</button>
 						</div>
 					</div>
 			</div>
@@ -173,10 +185,34 @@
 	</div>
 </div>
 	
+	
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+    	  <!-- Modal content-->
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        		<h4 class="modal-title">Type Y/y to confirm your lock :  </h4><br/>
+	        		<b>Warning!! : </b> Once your choice of question has been locked, it is not possible to choose again.
+	      		</div>
+	      		<div class="modal-body">
+	        		<input type="text" name="confirm" class="form-control" id="confirm" />
+	      		</div>
+	      		<div class="modal-footer">
+	      			<button type="submit" id="confirm_lock" class="btn btn-lg btn-default" data-dismiss="modal">Confirm?</button>
+	      		</div>
+	    	</div>
+
+  		</div>
+	</div>
+
 	<footer class="footer">
       <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
+        <p class="text-muted">footer content here.</p>
       </div>
     </footer>	
+
 </body>
 </html>
