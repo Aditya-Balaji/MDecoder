@@ -14,26 +14,25 @@
 			pointer-events: none;
 			opacity: 0.5;
 			background-color: lightgrey;
+			padding-left: 1%;
 		}
 		#question-body{
-			padding:5%;
+			padding:3%;
 		}
-
-		.footer{
-			position: absolute;
-			bottom: 0;
-			width: 100%;
-			height: 60px;
-			text-align: center;
-			background-color: #E7E7E7;
-			
+		.question-button{
+			padding-left: 1%;
 		}
+		#main-box{
+			margin-top: 2%;
+		}
+	
 	</style>
 	<title>layout</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<meta name="csrf-token" value="{{ csrf_token() }}">
-  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="css/bootstrap.min.css">
+  	<link rel="stylesheet" href="css/sticky-footer-navbar.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   	<script>
@@ -44,7 +43,10 @@
   		
  		//Hide answer field 
   		$('#instructions').click(function(){
-  			$('#lock-row').slideUp('slow');
+  			if(locked == 0)
+  				$('#lock-row').slideUp('slow');
+  			else 
+  				$('#answer-row').slideUp('slow');
   		});
 
   		//Display answer field
@@ -79,10 +81,10 @@
         </div>
     </nav>
 
-    <br/><br/>
+    
 
-	<div class="container">
-		<br/><br/>
+	<div class="container" id="main-box">
+			
 		<div class="panel panel-default" id="question-panel">
   			
   			<div class="panel-heading">
@@ -105,49 +107,50 @@
 						  
 						  <div id="home" class="tab-pane fade in active">
 						    <div class="col-sm-12">
-					  			<b>Instructions:</b> 
+					  			<u><b>Instructions:</b></u><br/> 
 					  			@yield('instructions')
 				  			</div>
 						  </div>
 
 						  <div id="Q1" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(1):</b> <span id="Q1">@yield('Q1')</span> <br/><br/>
+					  			<b>Question(1):</b> <span id="Q1">@yield('Q1')</span> <br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q2" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(2):</b> <span id="Q2">@yield('Q2')</span> <br/><br/>
+					  			<b>Question(2):</b> <span id="Q2">@yield('Q2')</span> <br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q3" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(3):</b> <span id="Q3">@yield('Q3')</span> <br/><br/>
+					  			<b>Question(3):</b> <span id="Q3">@yield('Q3')</span> <br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q4" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(4):</b> <span id="Q4">@yield('Q4')</span><br/><br/>
+					  			<b>Question(4):</b> <span id="Q4">@yield('Q4')</span><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q5" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(5):</b><span id="Q5">@yield('Q5')</span><br/><br/>
+					  			<b>Question(5):</b><span id="Q5">@yield('Q5')</span><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q6" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(6):</b><span id="Q6">@yield('Q6')</span><br/><br/>
+					  			<b>Question(6):</b><span id="Q6">@yield('Q6')</span><br/>
 				  			</div>
 						  </div>
 		  			</div>
 
 		  			<div id="answer-row">
+		  			<hr/>
 			  			<div class="col-sm-4">
 				  			<div class="form-group" id="answer">
 				  				<label for="answer">Answer:</label>
@@ -169,9 +172,11 @@
 		</div>
 	</div>
 </div>
-	<footer class="footer">
-	@yield('footer')
-	</footer>
 	
+	<footer class="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>	
 </body>
 </html>
