@@ -102,6 +102,7 @@
 				  <li><a data-toggle="pill" id='5' class="question-button" href="#Q5">Question 5</a></li>
 				  <li><a data-toggle="pill" id='6' class="question-button" href="#Q6">Question 6</a></li>
 				  <li><a data-toggle="pill" id='7' class="question-button" href="#Q7">Bonus</a></li>
+				  <li><a data-toggle="pill" id='8' href="#Q8">About Pragyan</a></li>
 				</ul>
   			</div>
 
@@ -157,6 +158,11 @@
 						  <div id="Q7" class="tab-pane fade">
 						    <div class="col-sm-12">
 					  			<b>Question(7):</b><span id="Q6">@yield('Q7')</span><br/>
+				  			</div>
+						  </div>
+						  <div id="Q8" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>About Pragyan:</b><span id="Q8">@yield('Q8')</span><br/>
 				  			</div>
 						  </div>
 		  			</div>
