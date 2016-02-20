@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/layout',function(){
-	return view('sample-layout');
-});
+//Page route ...
+Route::get('/mdecoder','Pages@index');
+Route::get('/leaderboard','Pages@leaderboard');
 
 //API routes ...
 Route::post('/getquestion','API@request_question');

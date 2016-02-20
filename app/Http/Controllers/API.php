@@ -8,6 +8,7 @@ use App\Question;
 use App\User;
 use App\Lockedquestion;
 use App\Bonus;
+use App\Day;
 use App\Http\Controllers\Controller;
 use App\Tries;
 
@@ -15,8 +16,11 @@ class API extends Controller
 {
 
     public function get_day(){
-        	return 1;
-        }
+         
+        $current_day = Day::first();
+        return $current_day->day;
+
+     }
 
 
     public function user_check($pid)
@@ -79,13 +83,14 @@ class API extends Controller
       	}
 
       }
-	   $q = Question::where('day',$request->day)->get();
+	  
+    $q = Question::where('day',$request->day)->get();
 	  $bonus=Bonus::where('day',$request->day)->first();
 	  $data['bonus']=$bonus->question;
 	  $counts=[$q[0]->count,$q[1]->count,$q[2]->count,$q[3]->count,$q[4]->count,$q[5]->count];
 	  $answers=[$bonus->ans1,$bonus->ans2,$bonus->ans3,$bonus->ans4,$bonus->ans5,$bonus->ans6];
 	  
-	  $output=shell_exec("sudo python /home/vijay/trial.py ".$counts[0]." ".$counts[1]." ".$counts[2]." ".$counts[3]." ".$counts[4]." ".$counts[5]." ".$answers[0]." ".$answers[1]." ".$answers[2]." ".$answers[3]." ".$answers[4]." ".$answers[5]);
+	  $output=shell_exec("python trial.py ".$counts[0]." ".$counts[1]." ".$counts[2]." ".$counts[3]." ".$counts[4]." ".$counts[5]." ".$answers[0]." ".$answers[1]." ".$answers[2]." ".$answers[3]." ".$answers[4]." ".$answers[5]);
 	
 	  $data['output']=$output;
     	return json_encode($data);
@@ -148,14 +153,20 @@ if($request->qpos<7)
                                 ->where('day',$request->day)
                                 ->decrement('try_count',1,['QID' => $result['QID']]);
 
-                  Question::where('PID',$request->PID)
-                          ->where('day',$request->day)
-                          ->increment('try_count',1,['QID' => $result['QID']]);
+                  $answered_question =  Question::where('day',$request->day)
+                                             ->where('qpos',$request->qpos)
+                                             ->first();
+
+
+                //increment count in Questions table            
+                     Question::where('day',$request->day)
+                              ->where('qpos',$request->qpos)
+                              ->increment('count',1,['QID' => $result['QID']]);
 
                 //plucks the corresponding try_count column
-                $try_count=Lockedquestion::where('PID',$request->PID)
-                                         ->where('day',$request->day)
-                                         ->pluck('try_count');
+                  $try_count=Lockedquestion::where('PID',$request->PID)
+                                           ->where('day',$request->day)
+                                           ->pluck('try_count');
                 
                 //inserts a new row in tries table
                 //uses $try_count to fill try_no column
@@ -178,6 +189,18 @@ if($request->qpos<7)
                               ->where('day',$request->day)
                               ->update(['successful' =>$TID]);
                 
+                //Score calculation based on 
+                $N = $answered_question->count;
+                if($answered_question->difficulty == 'easy')              
+                  $score = 400-5*($N-1);
+                elseif($answered_question->difficulty == 'medium')
+                  $score = 450-4*($N-1);
+                else
+                  $score = 500-3*($N-1);
+
+                  User::where('PID',$request->PID)
+                      ->update(['score' => $score]);
+
                   $data['status'] = 200;
                   $data['color'] = 'success';
                   $data['description'] = 'Correct Answer!! :)';
@@ -187,11 +210,13 @@ if($request->qpos<7)
             elseif($result->answer!=$request->answer)
                 {
                      
-                  Lockedquestion::where('PID',$request->PID)
-                                ->where('day',$request->day)
-                                ->decrement('try_count',1,['QID' => $result['QID']]);
+                Lockedquestion::where('PID',$request->PID)
+                              ->where('day',$request->day)
+                              ->decrement('try_count',1,['QID' => $result['QID']]);
 
-                  $try_count=Lockedquestion::where('PID',$request->PID)->where('day',$request->day)->pluck('try_count');
+                $try_count = Lockedquestion::where('PID',$request->PID)
+                                           ->where('day',$request->day)
+                                           ->pluck('try_count');
                 
                 //inserts a new row in tries table
                 //uses $try_count to fill try_no column
@@ -207,7 +232,7 @@ if($request->qpos<7)
 
                   $data['status'] = 101;
                   $data['color'] = 'danger';
-                  $data['description'] = 'Wrong Answer!! :(';
+                  $data['description'] = 'Wrong Answer!! :(<br/> <h2>Tries: '.$try_count.' left!</h2>';
                 }
             
 
@@ -273,11 +298,14 @@ $data= [];
             elseif($question->sum!=$request->answer)
                 {
                      
-            
-
                   $data['status'] = 101;
                   $data['color'] = 'danger';
-                  $data['description'] = 'Wrong Answer!! :(';
+                  $tries=Tries::where('PID',$request->PID)
+                              ->where('BID',$question->BID)
+                              ->latest()
+                              ->pluck('bonus_try_no');
+                  $data['description'] = 'Wrong Answer!! :( <br/><h2>Tries: '.$tries.' left!</h2>';
+                
                 }
             
 
