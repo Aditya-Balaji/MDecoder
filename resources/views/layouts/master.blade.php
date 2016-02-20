@@ -26,6 +26,18 @@
 			opacity: 0.97;
 			margin-top: 2%;
 		}
+		#matrix{
+			margin-left: 25%;
+			margin-right: 40%;
+			padding-left: 4%;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-left : 1px solid white;
+			border-right : 1px solid white;
+			border-radius: 5%;
+			white-space: nowrap;
+			overflow: auto;
+		}
 
 	</style>
 	<title>layout</title>
@@ -78,8 +90,6 @@
  	  		}
   		
   		});
-
-  		
 
   	});
 
@@ -176,7 +186,7 @@
 
 						  <div id="Q7" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(7):</b><span id="Q6">@yield('Q7')</span><br/>
+					  			<b>Question(7):</b><span id="Q7">@yield('Q7')</span><br/>
 				  			</div>
 						  </div>
 						  <div id="Q8" class="tab-pane fade">
