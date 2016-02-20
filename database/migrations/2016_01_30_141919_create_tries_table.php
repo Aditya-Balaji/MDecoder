@@ -18,6 +18,8 @@ class CreateTriesTable extends Migration
             $table->integer('QID')->unsigned();
             $table->integer('answer');
             $table->integer('try_no');
+			$table->integer('bonus_try_no');
+			$table->integer('BID');
             $table->timestamps();
 
         });
