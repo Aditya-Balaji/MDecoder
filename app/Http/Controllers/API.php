@@ -51,25 +51,31 @@ class API extends Controller
         $locked_question = Question::where('QID',$locked->QID)
                             ->first();
         $question = Question::where('day',$request->day)->get();
-        //return $question;                   
+
+        //health;                   
         $data['status'] = 104;
         $data['description'] = 'Locked for the day';
+
+        //required details
         $data['locked_qpos'] = $locked_question->qpos;
-        $data['questions'] = $question;
+        $data['difficulty'] = $locked_question->difficulty;
+        $data['question'] = $locked_question->question;
       
       }
       else{
 
-      	$question = Question::where('day',$request->day)->get();
+      	$questions = Question::where('day',$request->day)->select('question','difficulty','qpos')->get();
       	
-
+        //return $questions;
 
       	if(isset($request->day)){
       	
   	    	if($request->day == $this->get_day()){
   	    	$data['status'] = 200;
   				$data['description'] = 'success';
-  				$data['questions'] = $question;
+          $data['questions'] = $questions;
+
+         
   	    	}
   	    	else {
   	    		$data['status'] = 101;
@@ -109,6 +115,7 @@ Accepts -
 */
 public function request_answer(Request $request)
 {
+
 if($request->qpos<7)
 {
         //get the question with the 'day' and 'qpos'

@@ -20,6 +20,7 @@ Route::group(['middleware' => 'loggedinauth'], function() {
 
 Route::get('/leaderboard','Pages@leaderboard');
 
+
 Route::group(['middleware' => 'loginauth'], function() {
 	
 	Route::get('/logout', 'LoginController@logout');

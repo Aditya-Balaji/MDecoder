@@ -73,6 +73,7 @@ $(document).ready(function(){
 
 	     	},
 	        success:function(data){
+	        	if(data['status'] == 200){
 
 		        $("#Q1").html("<u><b>Question 1</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][0]['difficulty']+"<br/> "+data['questions'][0]['question']); 
 		        $("#Q2").html("<u><b>Question 2</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][1]['difficulty']+"<br/> "+data['questions'][1]['question']); 
@@ -80,8 +81,15 @@ $(document).ready(function(){
 	   		    $("#Q4").html("<u><b>Question 4</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][3]['difficulty']+"<br/> "+data['questions'][3]['question']); 
 	           	$("#Q5").html("<u><b>Question 5</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][4]['difficulty']+"<br/> "+data['questions'][4]['question']); 
 	           	$("#Q6").html("<u><b>Question 6</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][5]['difficulty']+"<br/> "+data['questions'][5]['question']);
+
 	           	$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div>'	); 
+	        	
+	        	}
 	        	if(data['status'] == 104){
+	        		
+	        		$("#Q"+data['locked_qpos']).html("<u><b>Question "+data['locked_qpos']+"</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['difficulty']+"<br/> "+data['question']);
+	           		$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div>'	);
+
 	  				locked++;
 	        		var i = 1;
 	  				var id;
