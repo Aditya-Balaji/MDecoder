@@ -23,6 +23,7 @@
 			padding-left: 1%;
 		}
 		#main-box{
+			opacity: 0.97;
 			margin-top: 2%;
 		}
 
@@ -54,18 +55,28 @@
   		$('.question-button').click(function(){
   			//alert('clickwe');
   			current_question = $(this).attr('id');
-   			if(locked == 0)
-   				if(current_question == 7){
-		  			$('#lock-row').fadeOut();
-		  			$('#answer-row').fadeIn('slow');
-   				}
-		  		else{
-		  			$('#answer-row').fadeOut();
-		  			$('#lock-row').fadeIn('slow');	
-		  		}
-   			
-  			else
-  				$('#answer-row').fadeIn('slow');
+   			if(current_question != 8){
+
+	   			if(locked == 0)
+	   				if(current_question == 7){
+			  			$('#lock-row').fadeOut();
+			  			$('#answer-row').fadeIn('slow');
+	   				}
+			  		else{
+			  			$('#answer-row').fadeOut();
+			  			$('#lock-row').fadeIn('slow');	
+			  		}
+	   			
+	  			else
+	  				$('#answer-row').fadeIn('slow');
+ 	  		}
+
+ 	  		else{
+
+ 	  			$('#lock-row').fadeOut();
+ 	  			$('#answer-row').fadeOut();	
+ 	  		}
+  		
   		});
 
   		
@@ -110,7 +121,7 @@
 				  <li><a data-toggle="pill" id='5' class="question-button" href="#Q5">Question 5</a></li>
 				  <li><a data-toggle="pill" id='6' class="question-button" href="#Q6">Question 6</a></li>
 				  <li><a data-toggle="pill" id='7' class="question-button" href="#Q7">Bonus</a></li>
-				  <li><a data-toggle="pill" id='8' href="#Q8">About Pragyan</a></li>
+				  <li><a data-toggle="pill" id='8' class="question-button" href="#Q8">About Pragyan</a></li>
 				</ul>
   			</div>
 
