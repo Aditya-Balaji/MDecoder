@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Question;
 use App\User;
 use App\Lockedquestion;
-
+use App\Bonus;
 use App\Http\Controllers\Controller;
 use App\Tries;
 
@@ -79,9 +79,20 @@ class API extends Controller
       	}
 
       }
+	   $q = Question::where('day',$request->day)->get();
+	  $bonus=Bonus::where('day',$request->day)->first();
+	  $data['bonus']=$bonus->question;
+	  $counts=[$q[0]->count,$q[1]->count,$q[2]->count,$q[3]->count,$q[4]->count,$q[5]->count];
+	  $answers=[$bonus->ans1,$bonus->ans2,$bonus->ans3,$bonus->ans4,$bonus->ans5,$bonus->ans6];
+	  
+	  $output=shell_exec("C:/Users/Aditya/Anaconda2/python trial.py ".$counts[0]." ".$counts[1]." ".$counts[2]." ".$counts[3]." ".$counts[4]." ".$counts[5]." ".$answers[0]." ".$answers[1]." ".$answers[2]." ".$answers[3]." ".$answers[4]." ".$answers[5]);
+	
+	  $data['output']=$output;
     	return json_encode($data);
     	
     }
+	
+	 
 
 /*
 Find whether the user answer is correct
@@ -92,6 +103,8 @@ Accepts -
 'answer'
 */
 public function request_answer(Request $request)
+{
+if($request->qpos<7)
 {
         //get the question with the 'day' and 'qpos'
         $result = Question::where('day',$request->day)
@@ -205,7 +218,79 @@ public function request_answer(Request $request)
            
            }
         return json_encode($data);
+      }
+else{
+$data= [];
+        $question=Bonus::where('day',$request->day)->first();
+        //Get the question from LockedQuestions table
+       
+                                       
+        $tries=Tries::where('PID',$request->PID)->where('BID',$question->BID)->get();
         
+      
+        if(sizeof($tries)>=3)  
+           {
+
+             $data['status'] = 102;
+             $data['color'] = 'warning';
+             $data['description'] = "your're outta tries!! :O";
+
+           }
+
+               else{                                                    
+               
+				$try_count=sizeof($tries)+1;
+                //inserts a new row in tries table
+                //uses $try_count to fill try_no column
+                $bonus_try_no=3-$try_count;
+                $try=new Tries;
+                $try->PID=$request->PID;
+                $try->BID=$question['BID'];
+                $try->answer=$request->answer;
+                $try->bonus_try_no=$bonus_try_no;
+                $try->save();
+            
+        if(isset($request->day) && isset($request->qpos))
+        {
+        
+
+                if($question->sum==$request->answer)
+                { 
+                
+                
+                
+                
+                  $data['status'] = 200;
+                  $data['color'] = 'success';
+                  $data['description'] = 'Correct Answer!! :)';
+                  $data['result'] = '1';
+                }
+
+            elseif($question->sum!=$request->answer)
+                {
+                     
+            
+
+                  $data['status'] = 101;
+                  $data['color'] = 'danger';
+                  $data['description'] = 'Wrong Answer!! :(';
+                }
+            
+
+        }
+        
+        else
+           {
+            
+            $data['status'] = 105;
+            $data['color'] = 'info';
+            $data['description'] = 'Request Error : This request requires parameters-date,answer and qpos';
+           
+      
+		   }
+		   }
+        return json_encode($data);
+}	  
     
     }
 
@@ -330,7 +415,7 @@ public function tries_available(Request $request){
       
       return 0;
     
-    }    
+    }   
 
 }
 
