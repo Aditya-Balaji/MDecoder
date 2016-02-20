@@ -30,7 +30,20 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 @endsection
 
 @section('Q8')
+<br/>
+Pragyan is an ISO 9001:2008 and ISO 20121:2012 certified student-run organisation.<br/>
+As a techno-management fest, Pragyan has evolved into a significant embodiment that reveals to the world and students alike, the infinite opportunities in science and management.<br/>
+ It is a four-day fest dedicated to giving a stellar experience in the field of techno-management.The fest offers a plethora of programmes; ranging from events, workshops, exhibitions, guest lectures, crossfires to offbeat contests and infotainment. Attended by some of the most renown personalities of our time and with an international outreach in 60 countries, Pragyan is a great platform for the realisation of dreams and new findings.<br/> The talent displayed so far, promises not just a change in the future, but the future itself. Every edition of Pragyan has transcended its former and this tradition remains to continue into the future.
+<br/>
+We at Pragyan, are a committed and competitive team with an outlook to innovate and celebrate technology. We remain determined in our motive to pursue excellence towards the satisfaction of our participants and beneficiaries by providing quality services. We plan to achieve the same by constantly improving the quality of our events through innovation and by providing fair judgement.
+<br/>
+Conforming to the ISO 20121:2012 standards, Pragyan intends to be a sustainable event. Financially viable activities are carried out keeping in mind our environment and society by large. Contributing to the society and bringing up viable solutions has remained the main idea of Pragyan. To achieve this goal, we also foster effective communication and promote professionalism amongst students of all ages.Thus, the promise of building a strong, innovative and sustainable world is kept every time.
+<br/>
+Pragyan is unique as it believes in the creativity and power of man to think and conquer the impossible. Pragyan's symbol - the wheel and this year, its theme: Fractals, represent the evolution of the world into infinite dimensions and ingenuity of complexity.
+<br/>
+<b>Let's Fracternize! Let's Celebrate Technology!</b>
 @endsection
+
 
 @section('footer')
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
