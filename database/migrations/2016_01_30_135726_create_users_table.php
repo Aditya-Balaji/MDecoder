@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
             $table->increments('PID');
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('score')->default(0);
             $table->timestamps();
         });
     }

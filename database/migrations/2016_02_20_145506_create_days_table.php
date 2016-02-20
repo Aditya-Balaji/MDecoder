@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuestionsTable extends Migration
+class CreateDaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,9 @@ class CreateQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
-            $table->increments('QID');
-            $table->string('question',1000);
-            $table->string('difficulty');
+        Schema::create('days', function (Blueprint $table) {
+            $table->increments('DID');
             $table->integer('day');
-            $table->integer('qpos');
-            $table->integer('answer');
-            $table->integer('count')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('questions');
+        Schema::drop('days');
     }
 }

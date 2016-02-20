@@ -18,10 +18,10 @@ class CreateTriesTable extends Migration
             $table->integer('QID')->unsigned();
             $table->integer('answer');
             $table->integer('try_no');
+			$table->integer('bonus_try_no')->default(3);
+			$table->integer('BID');
             $table->timestamps();
 
-            $table->foreign('PID')->references('PID')->on('users');
-            $table->foreign('QID')->references('QID')->on('questions');
         });
     }
 

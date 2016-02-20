@@ -14,60 +14,86 @@
 			pointer-events: none;
 			opacity: 0.5;
 			background-color: lightgrey;
+			padding-left: 1%;
 		}
 		#question-body{
-			padding:5%;
+			padding:3%;
+		}
+		.question-button{
+			padding-left: 1%;
+		}
+		#main-box{
+			opacity: 0.97;
+			margin-top: 2%;
+		}
+		#matrix{
+			margin-left: 25%;
+			margin-right: 40%;
+			padding-left: 4%;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-left : 1px solid white;
+			border-right : 1px solid white;
+			border-radius: 5%;
+			white-space: nowrap;
+			overflow: auto;
+		}
+		#title{
+			padding-left: 20px;
+			font-family: Audiowide;
 		}
 
-		.footer{
-			position: absolute;
-			bottom: 0;
-			width: 100%;
-			height: 60px;
-			text-align: center;
-			background-color: #E7E7E7;
-			
-		}
 	</style>
 	<title>layout</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  	<meta name="csrf-token" value="{{ csrf_token() }}">
+  	<link rel="stylesheet" href="css/bootstrap.min.css">
+  	<link rel="stylesheet" href="css/sticky-footer-navbar.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  	<script src="js/jquery.toaster.js"></script>
+  	<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
   	<script>
   	var current_question;
   	var locked = 0;
   	$(document).ready(function(){
 
+  		
  		//Hide answer field 
   		$('#instructions').click(function(){
-  			$('#lock-row').slideUp('slow');
+  			if(locked == 0)
+  				$('#lock-row').fadeOut('slow');
+  			else 
+  				$('#answer-row').fadeOut('slow');
   		});
 
   		//Display answer field
   		$('.question-button').click(function(){
+  			//alert('clickwe');
   			current_question = $(this).attr('id');
-   			if(locked == 0)
-	  			$('#lock-row').slideDown('slow');
-  		});
+   			if(current_question != 8){
 
-  		$('#lock').click(function(){
-  			var confirm = prompt('Do want to lock Question '+current_question+' (Y/N)?');
-  			if(confirm == 'Y'|| confirm == 'y'){
-  			$('#lock-row').hide();
-  			locked++;
-  			$('#answer-row').show();
-  			var i = 1;
-  			var id;
-  			for(i;i<=6;i++)
-  				if(current_question != i){
-  					id = '#'+i;
-  					$(id).attr('class','not-active');
-  				}
-  			}
+	   			if(locked == 0)
+	   				if(current_question == 7){
+			  			$('#lock-row').fadeOut();
+			  			$('#answer-row').fadeIn('slow');
+	   				}
+			  		else{
+			  			$('#answer-row').fadeOut();
+			  			$('#lock-row').fadeIn('slow');	
+			  		}
+	   			
+	  			else
+	  				$('#answer-row').fadeIn('slow');
+ 	  		}
 
-  			
+ 	  		else{
+
+ 	  			$('#lock-row').fadeOut();
+ 	  			$('#answer-row').fadeOut();	
+ 	  		}
+  		
   		});
 
   	});
@@ -76,6 +102,9 @@
 </head>
 
 <body>
+
+
+
 
 
 	<nav class="navbar navbar-default">
@@ -91,10 +120,10 @@
         </div>
     </nav>
 
-    <br/><br/>
+    
 
-	<div class="container">
-		<br/><br/>
+	<div class="container" id="main-box">
+			
 		<div class="panel panel-default" id="question-panel">
   			
   			<div class="panel-heading">
@@ -106,6 +135,8 @@
 				  <li><a data-toggle="pill" id='4' class="question-button" href="#Q4">Question 4</a></li>
 				  <li><a data-toggle="pill" id='5' class="question-button" href="#Q5">Question 5</a></li>
 				  <li><a data-toggle="pill" id='6' class="question-button" href="#Q6">Question 6</a></li>
+				  <li><a data-toggle="pill" id='7' class="question-button" href="#Q7">Bonus</a></li>
+				  <li><a data-toggle="pill" id='8' class="question-button" href="#Q8">About Pragyan</a></li>
 				</ul>
   			</div>
 
@@ -117,73 +148,112 @@
 						  
 						  <div id="home" class="tab-pane fade in active">
 						    <div class="col-sm-12">
-					  			<b>Instructions:</b> 
+					  			<u><b>Instructions:</b></u><br/> 
 					  			@yield('instructions')
 				  			</div>
 						  </div>
 
 						  <div id="Q1" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(1):</b> @yield('Q1') <br/><br/>
+					  			<b>Question(1):</b> <span id="Q1">@yield('Q1')</span> <br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q2" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(2):</b> @yield('Q2') <br/><br/>
+					  			<b>Question(2):</b> <span id="Q2">@yield('Q2')</span> <br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q3" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(3):</b> @yield('Q3')<br/><br/>
+					  			<b>Question(3):</b> <span id="Q3">@yield('Q3')</span> <br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q4" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(4):</b> @yield('Q4')<br/><br/>
+					  			<b>Question(4):</b> <span id="Q4">@yield('Q4')</span><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q5" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(5):</b> @yield('Q5')<br/><br/>
+					  			<b>Question(5):</b><span id="Q5">@yield('Q5')</span><br/>
 				  			</div>
 						  </div>
 
 						  <div id="Q6" class="tab-pane fade">
 						    <div class="col-sm-12">
-					  			<b>Question(6):</b> @yield('Q6')<br/><br/>
+					  			<b>Question(6):</b><span id="Q6">@yield('Q6')</span><br/>
+				  			</div>
+						  </div>
+
+						  <div id="Q7" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>Question(7):</b><span id="Q7">@yield('Q7')</span><br/>
+				  			</div>
+						  </div>
+						  <div id="Q8" class="tab-pane fade">
+						    <div class="col-sm-12">
+					  			<b>About Pragyan:</b><span id="Q8">@yield('Q8')</span><br/>
 				  			</div>
 						  </div>
 		  			</div>
 
 		  			<div id="answer-row">
+		  			<hr/>
 			  			<div class="col-sm-4">
 				  			<div class="form-group" id="answer">
 				  				<label for="answer">Answer:</label>
-				  				<input type="number" name="answer" class="form-control" id="answer">
+				  				<input type="number" name="answer" class="form-control" id="answer_input">
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<br/>
-							<button type="submit" class="btn btn-lg btn-default">Submit</button>
+							<button type="submit" id="submit_answer" class="btn btn-lg btn-default">Submit</button>
 						</div>
 					</div>
 
 					<div id="lock-row">	
+						<hr/>
 						<div class="col-md-2 col-md-offset-5">
-							<button id="lock" class="btn btn-lg btn-default">Lock</button>
+							<button id="lock" class="btn btn-lg btn-default" data-toggle="modal" data-target="#lock_modal">Lock</button>
 						</div>
 					</div>
 			</div>
 		</div>
 	</div>
 </div>
-	<footer class="footer">
-	@yield('footer')
-	</footer>
 	
+	
+	
+	<div id="lock_modal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+    	  
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        		<h4 class="modal-title">Type Y/y to confirm your lock :  </h4><br/>
+	        		<b>Warning!! : </b> Once your choice of question has been locked, it is not possible to choose again.
+	      		</div>
+	      		<div class="modal-body">
+	        		<input type="text" name="confirm" class="form-control" id="confirm" />
+	      		</div>
+	      		<div class="modal-footer">
+	      			<button type="submit" id="confirm_lock" class="btn btn-lg btn-default" data-dismiss="modal">Confirm?</button>
+	      		</div>
+	    	</div>
+
+  		</div>
+	</div>
+
+	<footer class="footer" id="title">
+      <div class="container">
+        <p class="text-muted" style="text-align:center">question courtesy: Maximus</p>
+      </div>
+    </footer>	
+
 </body>
 </html>
