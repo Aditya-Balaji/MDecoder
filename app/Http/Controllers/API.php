@@ -249,7 +249,8 @@ if($request->qpos<7)
         return json_encode($data);
       }
 else{
-$data= [];
+        
+        $data= [];
         $question=Bonus::where('day',$request->day)->first();
         //Get the question from LockedQuestions table
        
@@ -268,7 +269,7 @@ $data= [];
 
                else{                                                    
                
-				$try_count=sizeof($tries)+1;
+				        $try_count=sizeof($tries)+1;
                 //inserts a new row in tries table
                 //uses $try_count to fill try_no column
                 $bonus_try_no=3-$try_count;
