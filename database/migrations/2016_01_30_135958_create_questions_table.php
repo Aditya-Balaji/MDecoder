@@ -19,7 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('day');
             $table->integer('qpos');
             $table->integer('answer');
-            $table->integer('count')->default(3);
+            $table->integer('count')->default(0);
             $table->timestamps();
         });
     }

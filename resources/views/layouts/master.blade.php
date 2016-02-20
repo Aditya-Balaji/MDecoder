@@ -55,7 +55,15 @@
   			//alert('clickwe');
   			current_question = $(this).attr('id');
    			if(locked == 0)
-	  			$('#lock-row').fadeIn('slow');
+   				if(current_question == 7){
+		  			$('#lock-row').fadeOut();
+		  			$('#answer-row').fadeIn('slow');
+   				}
+		  		else{
+		  			$('#answer-row').fadeOut();
+		  			$('#lock-row').fadeIn('slow');	
+		  		}
+   			
   			else
   				$('#answer-row').fadeIn('slow');
   		});

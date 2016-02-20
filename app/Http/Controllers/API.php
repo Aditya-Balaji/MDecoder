@@ -85,7 +85,7 @@ class API extends Controller
 	  $counts=[$q[0]->count,$q[1]->count,$q[2]->count,$q[3]->count,$q[4]->count,$q[5]->count];
 	  $answers=[$bonus->ans1,$bonus->ans2,$bonus->ans3,$bonus->ans4,$bonus->ans5,$bonus->ans6];
 	  
-	  $output=shell_exec("C:/Users/Aditya/Anaconda2/python trial.py ".$counts[0]." ".$counts[1]." ".$counts[2]." ".$counts[3]." ".$counts[4]." ".$counts[5]." ".$answers[0]." ".$answers[1]." ".$answers[2]." ".$answers[3]." ".$answers[4]." ".$answers[5]);
+	  $output=shell_exec("sudo python /home/vijay/trial.py ".$counts[0]." ".$counts[1]." ".$counts[2]." ".$counts[3]." ".$counts[4]." ".$counts[5]." ".$answers[0]." ".$answers[1]." ".$answers[2]." ".$answers[3]." ".$answers[4]." ".$answers[5]);
 	
 	  $data['output']=$output;
     	return json_encode($data);
@@ -147,6 +147,10 @@ if($request->qpos<7)
                   Lockedquestion::where('PID',$request->PID)
                                 ->where('day',$request->day)
                                 ->decrement('try_count',1,['QID' => $result['QID']]);
+
+                  Question::where('PID',$request->PID)
+                          ->where('day',$request->day)
+                          ->increment('try_count',1,['QID' => $result['QID']]);
 
                 //plucks the corresponding try_count column
                 $try_count=Lockedquestion::where('PID',$request->PID)
