@@ -26,6 +26,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 @section('Q6')
 @endsection
 
+@section('Q7')
+@endsection
+
+@section('Q8')
+@endsection
+
 @section('footer')
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
 @endsection
@@ -60,7 +66,7 @@ $(document).ready(function(){
 	   		    $("#Q4").html("<u><b>Question 4:</b></u><br/> "+data['questions'][3]['question']); 
 	           	$("#Q5").html("<u><b>Question 5:</b></u><br/> "+data['questions'][4]['question']); 
 	           	$("#Q6").html("<u><b>Question 6:</b></u><br/> "+data['questions'][5]['question']);
-	           
+	           $("#Q7").html("<u><b>Bonus:</b></u><br/> "+data['bonus']+"<br><br>Matrix:<br>"+data['output']); 
 	        	if(data['status'] == 104){
 	  				locked++;
 	        		var i = 1;
@@ -113,6 +119,7 @@ $(document).ready(function(){
   	//AJAX to check the answer
   	$('#submit_answer').click(function(){
   		var user_answer = $('#answer_input').val();
+		
   		$.ajax({
   			dataType: "json",
 	        url: "answer",
@@ -130,7 +137,9 @@ $(document).ready(function(){
 	        },error:function(){ 
 	            alert("error!");
 	        }
-    	})
+    	});
+		
+		
   	});
  });
 </script>
