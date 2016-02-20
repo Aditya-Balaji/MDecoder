@@ -416,7 +416,7 @@ for r in range (6):
   for j in range(6):
      
      print '{0:.3f}'.format(d[r,j])
-	 print "|"
+	 print "&nbsp"
 	 
   print "<br>"	 
 	

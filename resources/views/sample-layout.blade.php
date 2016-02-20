@@ -1,7 +1,8 @@
 @extends('layouts.master')
 
 @section('heading')
-Mdecoder
+<span><img src="logo.png" width="100px" height="55px"  style="margin-top:-20px;"></span>
+<span id="title">Mdecoder</span>
 @endsection
 
 @section('instructions')
@@ -46,7 +47,7 @@ Pragyan is unique as it believes in the creativity and power of man to think and
 
 
 @section('footer')
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
+question courtesy: Maximus 
 @endsection
 
 <!--Javascript for AJAX -->
@@ -79,7 +80,7 @@ $(document).ready(function(){
 	   		    $("#Q4").html("<u><b>Question 4:</b></u><br/> "+data['questions'][3]['question']); 
 	           	$("#Q5").html("<u><b>Question 5:</b></u><br/> "+data['questions'][4]['question']); 
 	           	$("#Q6").html("<u><b>Question 6:</b></u><br/> "+data['questions'][5]['question']);
-	           	$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div>'); 
+	           	$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div>'	); 
 	        	if(data['status'] == 104){
 	  				locked++;
 	        		var i = 1;

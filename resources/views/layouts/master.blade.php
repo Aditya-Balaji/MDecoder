@@ -38,6 +38,10 @@
 			white-space: nowrap;
 			overflow: auto;
 		}
+		#title{
+			padding-left: 20px;
+			font-family: Audiowide;
+		}
 
 	</style>
 	<title>layout</title>
@@ -49,6 +53,7 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   	<script src="js/jquery.toaster.js"></script>
+  	<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
   	<script>
   	var current_question;
   	var locked = 0;
@@ -244,9 +249,9 @@
   		</div>
 	</div>
 
-	<footer class="footer">
+	<footer class="footer" id="title">
       <div class="container">
-        <p class="text-muted">footer content here.</p>
+        <p class="text-muted" style="text-align:center">question courtesy: Maximus</p>
       </div>
     </footer>	
 
