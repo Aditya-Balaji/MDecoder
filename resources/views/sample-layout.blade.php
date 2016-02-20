@@ -66,7 +66,7 @@ $(document).ready(function(){
 	   		    $("#Q4").html("<u><b>Question 4:</b></u><br/> "+data['questions'][3]['question']); 
 	           	$("#Q5").html("<u><b>Question 5:</b></u><br/> "+data['questions'][4]['question']); 
 	           	$("#Q6").html("<u><b>Question 6:</b></u><br/> "+data['questions'][5]['question']);
-	           $("#Q7").html("<u><b>Bonus:</b></u><br/> "+data['bonus']+"<br><br>Matrix:<br>"+data['output']); 
+	           	$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div>'); 
 	        	if(data['status'] == 104){
 	  				locked++;
 	        		var i = 1;
