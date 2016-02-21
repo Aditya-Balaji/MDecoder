@@ -2,11 +2,53 @@
 
 @section('heading')
 <span><img src="logo.png" width="100px" height="55px"  style="margin-top:-20px;"></span>
-<span id="title">Mdecoder</span>
+<span id="title" style="margin">Mdecoder</span>
 @endsection
 
 @section('instructions')
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+This is a <b>6 day online event</b>. 
+<br><br>
+* Each day <b>6 questions</b> with different weightages(2-easy,2-medium,2-hard) and <b> an encrypted
+
+  puzzle </b>(which gives a sequence of numbers ) will be presented.
+<br><br>
+* The participant has to solve <b>only 1</b> out of the 6 questions(mandatory) and he may solve the
+
+   puzzle(not mandatory) for bonus points.
+<br><br>
+* To aid the participant to get a “better score” ,<b> a puzzle (as mentioned above), and an equation
+ </b> will be presented to the participant.
+<br><br>
+<b>Event Equation: AX=B</b>
+<br>
+  * A (6*6 matrix) - Given to participant (which is frequently updated by the server to keep up the equation AX=B).
+<br><br>
+  * X (6*1 matrix) - To be deducted from puzzle.
+<br><br>
+  * B (6*1 matrix) - Gives information about the number of participants who have solved each question upto that point in time.
+<br><br>
+* The Bonus answer will be completely related to the puzzle. i.e., the sum of all the values of matrix X is the bonus answer.
+<br><br>
+* So, solving the puzzle not only gets the person bonus points but also helps him get Matrix B(6*1matrix),
+
+   which hints at the number of participants who solved at that time.
+<br><br>
+
+The score of a participant is decided by the <b>difficulty</b> of the problem he has solved that day as well as <b>the number of people </b>who have solved the problem before him. 
+<br><br>
+<b>Tip:</b> 
+
+Let’s say you see a question with high difficulty, which can potentially fetch you many points. 
+
+But suppose you find that many people have already solved this question, and only a few people have solved a relatively easier
+
+question. In this case, solving the easier question is probably more profitable, since the score of a participant also depends on the
+
+number of people who have previously solved the question.
+
+<br> 
+<br>
+* The 6 questions will test basic concepts in algebra, combinatorics, geometry and related topics and some common sense.
 @endsection
 
 @section('Q1')
@@ -68,8 +110,8 @@ $(document).ready(function(){
 	        url: "{{action('API@request_question')}}",
 	        type:"POST",
 	        data: {
-	         user_id : 1,
-	         day : 1,
+	         user_id : {{$user_id}},
+	         day : {{$day}},
 
 	     	},
 	        success:function(data){
@@ -116,8 +158,8 @@ $(document).ready(function(){
 		        url: "{{action('API@lock_question')}}",
 		        type:"POST",
 		        data: {
-		         user_id : 1,
-		         day : 1,
+		         user_id : {{$user_id}},
+		         day : {{$day}},
 		         qpos : current_question,
 		     	},
 		        success:function(data){
@@ -147,8 +189,8 @@ $(document).ready(function(){
 	        url: "{{action('API@request_answer')}}",
 	        type:"POST",
 	        data: {
-	         PID : 1,
-	         day : 1,
+	         PID : {{$user_id}},
+	         day : {{$day}},
 	         qpos : current_question,
 	         answer : user_answer,
 	     	},

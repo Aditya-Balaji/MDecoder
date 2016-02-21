@@ -11,6 +11,7 @@ use App\Bonus;
 use App\Day;
 use App\Http\Controllers\Controller;
 use App\Tries;
+use App\Scorelog;
 
 class API extends Controller
 {
@@ -207,6 +208,12 @@ if($request->qpos<7)
 
                   User::where('PID',$request->PID)
                       ->update(['score' => $score]);
+
+                  $scorelog = new Scorelog;
+                  $scorelog->PID = $request->PID;
+                  $scorelog->QID = $answered_question->QID;
+                  $scorelog->score = $score;
+                  $scorelog->save(); 
 
                   $data['status'] = 200;
                   $data['color'] = 'success';

@@ -112,9 +112,43 @@
             <div class="navbar-header">
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('#') }}">
-                    @yield('heading')
-                </a>
+                
+
+                	<div class="container">
+                		<div class="col-sm-9">
+	                		<a class="navbar-brand" href="{{ action('LoginController@index') }}">
+	        	        	    @yield('heading')
+        	        		</a>
+    	     			</div>
+
+    	       			<div class="col-sm-3">
+  						
+  						<div class="col-sm-6">
+          	        		<div class="dropdown" style="margin-top:10px;">
+ 							 	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+ 							 			Menu
+ 						 			<span class="caret"></span></button>
+							  		<ul class="dropdown-menu">
+							    		<li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
+							    		<li><a href="{{action('LoginController@logout')}}">Logout</a></li>
+							  		</ul>
+							</div>
+	        	        </div>
+	        	        <div class="col-sm-6">
+          	        		<div class="dropdown" style="margin-top:10px;">
+ 							 	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+ 							 			Menu
+ 						 			<span class="caret"></span></button>
+							  		<ul class="dropdown-menu">
+							    		<li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
+							    		<li><a href="{{action('LoginController@logout')}}">Logout</a></li>
+							  		</ul>
+							</div>
+	        	        </div>
+	        	        </div>
+    	        	</div>
+    	        	
+    	        
 
             </div>
         </div>

@@ -25,9 +25,11 @@ class LoginController extends Controller
 
     public function index(){
         $day = $this->get_day();
-        return view('sample-layout')->with('day',$day);
+        $user_id = Session::get('user_id');
+        return view('sample-layout')->with(['day' => $day,'user_id' => $user_id]);
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *

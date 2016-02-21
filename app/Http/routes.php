@@ -25,6 +25,7 @@ Route::group(['middleware' => 'loginauth'], function() {
 	
 	Route::get('/logout', 'LoginController@logout');
 	Route::get('/home','LoginController@index');
+	
 });
 
 

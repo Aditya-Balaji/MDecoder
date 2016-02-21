@@ -8,6 +8,7 @@
   	<meta name="csrf-token" value="{{ csrf_token() }}">
   	<link rel="stylesheet" href="css/bootstrap.min.css">
   	<link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   	<script src="js/jquery.toaster.js"></script>
@@ -17,6 +18,10 @@
 			opacity: 0.97;
 			margin-top: 2%;
 		}
+    #title{
+      padding-left: 20px;
+      font-family: Audiowide;
+    }
 	</style>
 </head>
 
@@ -27,9 +32,32 @@
             <div class="navbar-header">
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('#') }}">
-                    MDecoder
-                </a>
+                
+
+                  <div class="container">
+                    <div class="col-sm-7">
+                      <a class="navbar-brand" href="{{ action('LoginController@index') }}">
+                         <span><img src="logo.png" width="100px" height="55px"  style="margin-top:-20px;"></span>
+                         <span id="title" style="margin">Mdecoder</span>
+                      </a>
+                </div>
+
+              
+              <div class="col-sm-3"></div>
+              
+              <div class="col-sm-1">
+                        <div class="dropdown" style="margin-top:10px;">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Play
+                  <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
+                    </ul>
+              </div>
+                    </div>
+                </div>
+                
+              
 
             </div>
         </div>
