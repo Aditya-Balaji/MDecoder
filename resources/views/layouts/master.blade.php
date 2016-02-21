@@ -279,7 +279,7 @@
 
 	<footer class="footer" id="title">
       <div class="container">
-        <p class="text-muted" style="text-align:center">question courtesy: Maximus</p>
+        <p class="text-muted" style="text-align:center">@yield('footer')</p>
       </div>
     </footer>	
 

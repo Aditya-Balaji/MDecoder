@@ -30,10 +30,12 @@ Route::group(['middleware' => 'loginauth'], function() {
 
 
 //API routes ...
-Route::post('/getquestion','API@request_question');
-Route::post('/answer','API@request_answer');
+Route::group(['middleware' => 'apisessionauth'], function() {
+	Route::post('/getquestion','API@request_question');
+	Route::post('/answer','API@request_answer');
 
-Route::post('/lock','API@lock_question');
-Route::post('/locked','API@request_locked');
-Route::post('/triesleft','API@tries_available');
+	Route::post('/lock','API@lock_question');
+	Route::post('/locked','API@request_locked');
+	Route::post('/triesleft','API@tries_available');
+});
 
