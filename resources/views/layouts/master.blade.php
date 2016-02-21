@@ -49,7 +49,7 @@
 		}
 
 	</style>
-	<title>layout</title>
+	<title>MDecoder</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<meta name="csrf-token" value="{{ csrf_token() }}">
@@ -120,29 +120,25 @@
                 
 
                 	<div class="container">
-                		<div class="col-sm-8">
+                		<div class="col-sm-9">
 	                		<a class="navbar-brand" href="{{ action('LoginController@index') }}">
 	        	        	    @yield('heading')
         	        		</a>
     	     			</div>
 
-    	       			<div class="col-sm-4" id="help-links">
+    	       			<div class="col-sm-2" id="help-links">
+  						<div class="dropdown">
+							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+							  		@yield('user_name')
+								  <span class="caret"></span></button>
+								  <ul class="dropdown-menu">
+								    <li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
+								    <li><a href="{{action('LoginController@logout')}}">Logout</a></li>
+								  </ul>
+								</div>
   						
-  						<div class="col-sm-4">
-          	        		<div class="dropdown" style="margin-top:10px;">
- 							 	Hi! {{$user_name}}
-							</div>
-	        	        </div>
-	        	        <div class="col-sm-4">
-          	        		<div class="dropdown" style="margin-top:10px;">
- 							 	<a href="{{action('Pages@leaderboard')}}">Leaderboard</a>
-							</div>
-	        	        </div>
-	        	        <div class="col-sm-4">
-          	        		<div class="dropdown" style="margin-top:10px;">
- 							 	<a href="{{action('LoginController@logout')}}">Logout</a>
-							</div>
-	        	        </div>
+	        	        
+	        	        
 	        	        </div>
     	        	</div>
     	        	

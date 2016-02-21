@@ -5,6 +5,10 @@
 <span id="title" style="margin">Mdecoder</span>
 @endsection
 
+@section('user_name')
+Hi! {{$user_name}}
+@endsection
+
 @section('instructions')
 This is a <b>6 day online event</b>. 
 <br><br>

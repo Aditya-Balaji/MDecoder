@@ -58,7 +58,7 @@
             <div class="navbar-header">
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('mdecoder') }}">
+                <a class="navbar-brand" href="{{ action('LoginController@index') }}">
                     <span><img src="logo.png" width="100px" height="55px"  style="margin-top:-20px;"></span>
 					<span id="title">Mdecoder</span>
                 </a>
