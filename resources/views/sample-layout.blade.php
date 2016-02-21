@@ -93,7 +93,7 @@ Pragyan is unique as it believes in the creativity and power of man to think and
 
 
 @section('footer')
-Questions set with &hearts; by Maximus, Math Society of NITT
+Questions set with &hearts; by <a href="https://www.fb.com/MaximusNITT/">Maximus</a>, Math Society of NITT
 @endsection
 
 <!--Javascript for AJAX -->
@@ -128,13 +128,13 @@ $(document).ready(function(){
 	           	$("#Q5").html("<u><b>Question 5</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][4]['difficulty']+"<br/> "+data['questions'][4]['question']); 
 	           	$("#Q6").html("<u><b>Question 6</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][5]['difficulty']+"<br/> "+data['questions'][5]['question']);
 
-	           	$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div><div>Use <a href="http://matrix.reshish.com/multiplication.php">this link</a> to do matrix multiplication!</div>'	); 
+	           	$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div><div>Use <a href="http://matrix.reshish.com/multiplication.php">this link</a> to do matrix multiplication!</div>'); 
 	        	
 	        	}
 	        	if(data['status'] == 104){
 	        		
 	        		$("#Q"+data['locked_qpos']).html("<u><b>Question "+data['locked_qpos']+"</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['difficulty']+"<br/> "+data['question']);
-	           		$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div>'	);
+	           		$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div><div>Use <a href="http://matrix.reshish.com/multiplication.php">this link</a> to do matrix multiplication!</div>'); 
 
 	  				locked++;
 	        		var i = 1;

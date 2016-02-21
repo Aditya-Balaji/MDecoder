@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Session;
 use App\Day as Day;
+use App\RequestLog as RequestLog;
 
 class APISessionAuth
 {
@@ -19,9 +20,15 @@ class APISessionAuth
     {
         if(Session::has('user_id'))
         {
+
             $session_user_id = Session::get('user_id');
             if($request->user_id == $session_user_id)
             {
+                $path = $request->path().'?user_id='.$request->user_id.'&day='.$request->day;
+                $requestlog = new RequestLog();
+                $requestlog->PID = $session_user_id;
+                $requestlog->request = $path;
+                $requestlog->save();
                 if($request->day != Day::first()->pluck('day'))
                 {
                     $data['status'] = 112;

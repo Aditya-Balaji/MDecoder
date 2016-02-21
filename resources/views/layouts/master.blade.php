@@ -247,10 +247,11 @@
 				  				<input type="number" name="answer" class="form-control" id="answer_input">
 							</div>
 						</div>
-						<div class="col-sm-3">
+						<div class="col-sm-8">
 							<br/>
 							<button type="submit" id="submit_answer" class="btn btn-lg btn-default">Submit</button>
 						</div>
+		  				<div><font color="#0ce3ac">Remember that you can only try answering a question 3 times!</font></div>
 					</div>
 
 					<div id="lock-row">	
