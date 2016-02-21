@@ -126,7 +126,7 @@ if($request->qpos<7)
         $data= [];
         
         //Get the question from LockedQuestions table
-        $locked = Lockedquestion::where('PID',$request->PID)
+        $locked = Lockedquestion::where('PID',$request->user_id)
                                 ->where('day',$request->day)
                                 ->where('QID',$result->QID)
                                 ->first();
@@ -157,7 +157,7 @@ if($request->qpos<7)
                 { 
                 
                 //updates QID in locked_questions table
-                  Lockedquestion::where('PID',$request->PID)
+                  Lockedquestion::where('PID',$request->user_id)
                                 ->where('day',$request->day)
                                 ->decrement('try_count',1,['QID' => $result['QID']]);
 
@@ -172,7 +172,7 @@ if($request->qpos<7)
                               ->increment('count',1,['QID' => $result['QID']]);
 
                 //plucks the corresponding try_count column
-                  $try_count=Lockedquestion::where('PID',$request->PID)
+                  $try_count=Lockedquestion::where('PID',$request->user_id)
                                            ->where('day',$request->day)
                                            ->pluck('try_count');
                 
@@ -180,20 +180,20 @@ if($request->qpos<7)
                 //uses $try_count to fill try_no column
                 $try_no=3-$try_count;
                 $try=new Tries;
-                $try->PID=$request->PID;
+                $try->PID=$request->user_id;
                 $try->QID=$result['QID'];
                 $try->answer=$result['answer'];
                 $try->try_no=$try_no;
                 $try->save();
                 
                //plucks TID of the row inserted above
-                $TID=Tries::where('PID',$request->PID)
+                $TID=Tries::where('PID',$request->user_id)
                           ->where('QID',$result['QID'])
                           ->where('try_no',$try_no)
                           ->pluck('TID');
 
                 //updates locked_questions table successful=$TID 
-                Lockedquestion::where('PID',$request->PID)
+                Lockedquestion::where('PID',$request->user_id)
                               ->where('day',$request->day)
                               ->update(['successful' =>$TID]);
                 
@@ -206,11 +206,11 @@ if($request->qpos<7)
                 else
                   $score = 500-3*($N-1);
 
-                  User::where('PID',$request->PID)
+                  User::where('PID',$request->user_id)
                       ->update(['score' => $score]);
 
                   $scorelog = new Scorelog;
-                  $scorelog->PID = $request->PID;
+                  $scorelog->PID = $request->user_id;
                   $scorelog->QID = $answered_question->QID;
                   $scorelog->score = $score;
                   $scorelog->save(); 
@@ -224,11 +224,11 @@ if($request->qpos<7)
             elseif($result->answer!=$request->answer)
                 {
                      
-                Lockedquestion::where('PID',$request->PID)
+                Lockedquestion::where('PID',$request->user_id)
                               ->where('day',$request->day)
                               ->decrement('try_count',1,['QID' => $result['QID']]);
 
-                $try_count = Lockedquestion::where('PID',$request->PID)
+                $try_count = Lockedquestion::where('PID',$request->user_id)
                                            ->where('day',$request->day)
                                            ->pluck('try_count');
                 
@@ -236,7 +236,7 @@ if($request->qpos<7)
                 //uses $try_count to fill try_no column
                 $try_no=3-$try_count;
                 $try=new Tries;
-                $try->PID=$request->PID;
+                $try->PID=$request->user_id;
                 $try->QID=$result['QID'];
                 $try->answer=$request->answer;
                 $try->try_no=$try_no;
@@ -269,7 +269,7 @@ else{
         //Get the question from LockedQuestions table
        
                                        
-        $tries=Tries::where('PID',$request->PID)->where('BID',$question->BID)->get();
+        $tries=Tries::where('PID',$request->user_id)->where('BID',$question->BID)->get();
         
       
         if(sizeof($tries)>=3)  
@@ -288,7 +288,7 @@ else{
                 //uses $try_count to fill try_no column
                 $bonus_try_no=3-$try_count;
                 $try=new Tries;
-                $try->PID=$request->PID;
+                $try->PID=$request->user_id;
                 $try->BID=$question['BID'];
                 $try->answer=$request->answer;
                 $try->bonus_try_no=$bonus_try_no;
@@ -315,7 +315,7 @@ else{
                      
                   $data['status'] = 101;
                   $data['color'] = 'danger';
-                  $tries=Tries::where('PID',$request->PID)
+                  $tries=Tries::where('PID',$request->user_id)
                               ->where('BID',$question->BID)
                               ->latest()
                               ->pluck('bonus_try_no');

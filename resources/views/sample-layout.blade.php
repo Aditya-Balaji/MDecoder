@@ -107,7 +107,7 @@ $(document).ready(function(){
     		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   			}
 		});
-
+		$("#loading").css('display', 'block');
 	//AJAX for retrieving questions
   		$.ajax({
   			dataType: "json",
@@ -145,7 +145,7 @@ $(document).ready(function(){
 	  					$(id).attr('class','not-active');
 	  				}		
 	        	}
-
+	        	$("#loading").css('display', 'none');
 	        },error:function(){ 
 	            alert("error!");
 	        }
@@ -156,6 +156,7 @@ $(document).ready(function(){
   		var confirm = $('#confirm').val();
   		if(confirm == 'Y'|| confirm == 'y'){
 	  		$('#lock-row').fadeOut();
+	  		$("#loading").css('display', 'block');
 	  		locked++;
 	  		$.ajax({
 	  			dataType: "json",
@@ -168,6 +169,7 @@ $(document).ready(function(){
 		     	},
 		        success:function(data){
 		           //alert('Succesfully Locked!'); 
+		           $("#loading").css('display', 'none');
 		        },error:function(){ 
 		            alert("error!");
 		        }
@@ -187,19 +189,19 @@ $(document).ready(function(){
   	//AJAX to check the answer
   	$('#submit_answer').click(function(){
   		var user_answer = $('#answer_input').val();
-		
+		$("#loading").css('display', 'block');
   		$.ajax({
   			dataType: "json",
 	        url: "{{action('API@request_answer')}}",
 	        type:"POST",
 	        data: {
-	         PID : {{$user_id}},
+	         user_id : {{$user_id}},
 	         day : {{$day}},
 	         qpos : current_question,
 	         answer : user_answer,
 	     	},
 	        success:function(data){
-
+	        	$("#loading").css('display', 'none');
 	            $.toaster({ priority : data['color'], title : '<strong>Message</strong>', message : data['description']}); 
 	        
 	        },error:function(){ 
