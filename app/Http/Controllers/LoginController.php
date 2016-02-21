@@ -84,6 +84,7 @@ class LoginController extends Controller
                 $user->prag_pid = $res['data']['user_id'];
                 $user->email = $email;
                 $user->save();
+                $user=User::where('email',$email)->first();
                 Session::put('user_id',$user->PID);
                 return redirect('home');
 
