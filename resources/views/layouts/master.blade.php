@@ -42,9 +42,14 @@
 			padding-left: 20px;
 			font-family: Audiowide;
 		}
+		#help-links{
+			font-size: 90%;
+			margin-top: 10px;
+			font-family: Audiowide;
+		}
 
 	</style>
-	<title>layout</title>
+	<title>MDecoder</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<meta name="csrf-token" value="{{ csrf_token() }}">
@@ -121,30 +126,19 @@
         	        		</a>
     	     			</div>
 
-    	       			<div class="col-sm-3">
+    	       			<div class="col-sm-2" id="help-links">
+  						<div class="dropdown">
+							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+							  		@yield('user_name')
+								  <span class="caret"></span></button>
+								  <ul class="dropdown-menu">
+								    <li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
+								    <li><a href="{{action('LoginController@logout')}}">Logout</a></li>
+								  </ul>
+								</div>
   						
-  						<div class="col-sm-6">
-          	        		<div class="dropdown" style="margin-top:10px;">
- 							 	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
- 							 			Menu
- 						 			<span class="caret"></span></button>
-							  		<ul class="dropdown-menu">
-							    		<li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
-							    		<li><a href="{{action('LoginController@logout')}}">Logout</a></li>
-							  		</ul>
-							</div>
-	        	        </div>
-	        	        <div class="col-sm-6">
-          	        		<div class="dropdown" style="margin-top:10px;">
- 							 	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
- 							 			Menu
- 						 			<span class="caret"></span></button>
-							  		<ul class="dropdown-menu">
-							    		<li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
-							    		<li><a href="{{action('LoginController@logout')}}">Logout</a></li>
-							  		</ul>
-							</div>
-	        	        </div>
+	        	        
+	        	        
 	        	        </div>
     	        	</div>
     	        	
