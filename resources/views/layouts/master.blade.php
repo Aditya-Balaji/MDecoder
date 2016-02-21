@@ -42,6 +42,11 @@
 			padding-left: 20px;
 			font-family: Audiowide;
 		}
+		#help-links{
+			font-size: 90%;
+			margin-top: 10px;
+			font-family: Audiowide;
+		}
 
 	</style>
 	<title>layout</title>
@@ -115,34 +120,27 @@
                 
 
                 	<div class="container">
-                		<div class="col-sm-9">
+                		<div class="col-sm-8">
 	                		<a class="navbar-brand" href="{{ action('LoginController@index') }}">
 	        	        	    @yield('heading')
         	        		</a>
     	     			</div>
 
-    	       			<div class="col-sm-3">
+    	       			<div class="col-sm-4" id="help-links">
   						
-  						<div class="col-sm-6">
+  						<div class="col-sm-4">
           	        		<div class="dropdown" style="margin-top:10px;">
- 							 	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
- 							 			Menu
- 						 			<span class="caret"></span></button>
-							  		<ul class="dropdown-menu">
-							    		<li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
-							    		<li><a href="{{action('LoginController@logout')}}">Logout</a></li>
-							  		</ul>
+ 							 	Hi! {{$user_name}}
 							</div>
 	        	        </div>
-	        	        <div class="col-sm-6">
+	        	        <div class="col-sm-4">
           	        		<div class="dropdown" style="margin-top:10px;">
- 							 	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
- 							 			Menu
- 						 			<span class="caret"></span></button>
-							  		<ul class="dropdown-menu">
-							    		<li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
-							    		<li><a href="{{action('LoginController@logout')}}">Logout</a></li>
-							  		</ul>
+ 							 	<a href="{{action('Pages@leaderboard')}}">Leaderboard</a>
+							</div>
+	        	        </div>
+	        	        <div class="col-sm-4">
+          	        		<div class="dropdown" style="margin-top:10px;">
+ 							 	<a href="{{action('LoginController@logout')}}">Logout</a>
 							</div>
 	        	        </div>
 	        	        </div>
