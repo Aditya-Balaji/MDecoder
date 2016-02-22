@@ -198,6 +198,9 @@ if($request->qpos<7)
                               ->update(['successful' =>$TID]);
                 
                 //Score calculation based on 
+                $score_initial = User::where('PID',$request->user_id)
+                                     ->pluck('score');
+
                 $N = $answered_question->count;
                 if($answered_question->difficulty == 'easy')              
                   $score = 400-5*($N-1);
@@ -205,6 +208,8 @@ if($request->qpos<7)
                   $score = 450-4*($N-1);
                 else
                   $score = 500-3*($N-1);
+
+                $score = $score_initial + $score;
 
                   User::where('PID',$request->user_id)
                       ->update(['score' => $score]);
@@ -267,12 +272,14 @@ else{
         $data= [];
         $question=Bonus::where('day',$request->day)->first();
         //Get the question from LockedQuestions table
-       
                                        
         $tries=Tries::where('PID',$request->user_id)->where('BID',$question->BID)->get();
+        $if_answered = Tries::where('PID',$request->user_id)
+                            ->where('day',$request->day)
+                            ->pluck('BID');
         
       
-        if(sizeof($tries)>=3)  
+        if(sizeof($tries)>=3 || $if_answered != 0)  
            {
 
              $data['status'] = 102;
@@ -294,8 +301,8 @@ else{
                 $try->bonus_try_no=$bonus_try_no;
                 $try->save();
             
-        if(isset($request->day) && isset($request->qpos))
-        {
+            if(isset($request->day) && isset($request->qpos))
+            {
         
 
                 if($question->sum==$request->answer)
@@ -306,6 +313,14 @@ else{
                 
                   $data['status'] = 200;
                   $data['color'] = 'success';
+                  $score_initial = User::where('PID',$request->user_id)
+                                     ->pluck('score');
+
+                  $score = $score_initial + 50;
+
+                  User::where('PID',$request->user_id)
+                      ->update(['score' => $score]);
+
                   $data['description'] = 'Correct Answer!! :)';
                   $data['result'] = '1';
                 }
