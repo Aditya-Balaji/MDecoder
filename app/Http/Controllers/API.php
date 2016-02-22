@@ -274,9 +274,9 @@ else{
         //Get the question from LockedQuestions table
                                        
         $tries=Tries::where('PID',$request->user_id)->where('BID',$question->BID)->get();
-        $if_answered = Tries::where('PID',$request->user_id)
-                            ->where('day',$request->day)
-                            ->pluck('BID');
+        $if_answered_bonus = Tries::where('PID',$request->user_id)
+                            ->latest();
+        $if_answered = $if_answered_bonus->BID;
         
       
         if(sizeof($tries)>=3 || $if_answered != 0)  
