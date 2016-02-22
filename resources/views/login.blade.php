@@ -22,12 +22,17 @@
       padding-left: 20px;
       font-family: Audiowide;
     }
+    #help-links{
+      margin-top: 10px;
+      font-size: 90%;
+      font-family: Audiowide;
+    }
 	</style>
 </head>
 
 <body>
 
-	<nav class="navbar navbar-default">
+<nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
 
@@ -35,25 +40,21 @@
                 
 
                   <div class="container">
-                    <div class="col-sm-7">
+                    <div class="col-sm-9">
                       <a class="navbar-brand" href="{{ action('LoginController@index') }}">
-                         <span><img src="logo.png" width="100px" height="55px"  style="margin-top:-20px;"></span>
-                         <span id="title" style="margin">Mdecoder</span>
+                          <span><img src="logo.png" width="100px" height="55px"  style="margin-top:-20px;"></span>
+                          <span id="title" style="margin">Mdecoder</span>
                       </a>
                 </div>
 
+                  <div class="col-sm-3" id="help-links">
               
-              <div class="col-sm-3"></div>
-              
-              <div class="col-sm-1">
+              <div class="col-sm-6">
                         <div class="dropdown" style="margin-top:10px;">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Play
-                  <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="{{action('Pages@leaderboard')}}">Leaderboard</a></li>
-                    </ul>
+                <a href="{{action('Pages@leaderboard')}}">Leaderboard</a>
               </div>
+                    </div>
+                  
                     </div>
                 </div>
                 

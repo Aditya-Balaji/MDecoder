@@ -5,21 +5,25 @@
 <span id="title" style="margin">Mdecoder</span>
 @endsection
 
-@section('instructions')
-This is a <b>6 day online event</b>. 
-<br><br>
-* Each day <b>6 questions</b> with different weightages(2-easy,2-medium,2-hard) and <b> an encrypted
+@section('user_name')
+Hi! {{$user_name}}
+@endsection
 
-  puzzle </b>(which gives a sequence of numbers ) will be presented.
+@section('instructions')
+This is a <b><u>6 day online event</u></b>. 
 <br><br>
-* The participant has to solve <b>only 1</b> out of the 6 questions(mandatory) and he may solve the
+* Each day <b><u>6 questions</u></b> with different weightages(2-easy,2-medium,2-hard) and <b><u> an encrypted
+
+  puzzle </u></b>(which gives a sequence of numbers ) will be presented.
+<br><br>
+* The participant has to solve <b><u>only 1</u></b> out of the 6 questions(mandatory) and he may solve the
 
    puzzle(not mandatory) for bonus points.
 <br><br>
-* To aid the participant to get a “better score” ,<b> a puzzle (as mentioned above), and an equation
- </b> will be presented to the participant.
+* To aid the participant to get a “better score” ,<b><u> a puzzle (as mentioned above), and an equation
+ </u></b> will be presented to the participant.
 <br><br>
-<b>Event Equation: AX=B</b>
+<b><u>Event Equation: AX=B</u></b>
 <br>
   * A (6*6 matrix) - Given to participant (which is frequently updated by the server to keep up the equation AX=B).
 <br><br>
@@ -34,9 +38,9 @@ This is a <b>6 day online event</b>.
    which hints at the number of participants who solved at that time.
 <br><br>
 
-The score of a participant is decided by the <b>difficulty</b> of the problem he has solved that day as well as <b>the number of people </b>who have solved the problem before him. 
+The score of a participant is decided by the <b><u>difficulty</u></b> of the problem he has solved that day as well as <b><u>the number of people </u></b>who have solved the problem before him. 
 <br><br>
-<b>Tip:</b> 
+<b><u>Tip:</u></b> 
 
 Let’s say you see a question with high difficulty, which can potentially fetch you many points. 
 
@@ -84,12 +88,12 @@ Conforming to the ISO 20121:2012 standards, Pragyan intends to be a sustainable 
 <br/>
 Pragyan is unique as it believes in the creativity and power of man to think and conquer the impossible. Pragyan's symbol - the wheel and this year, its theme: Fractals, represent the evolution of the world into infinite dimensions and ingenuity of complexity.
 <br/>
-<b>Let's Fracternize! Let's Celebrate Technology!</b>
+<b><u>Let's Fracternize! Let's Celebrate Technology!</u></b>
 @endsection
 
 
 @section('footer')
-question courtesy: Maximus 
+Questions set with &hearts; by <a href="https://www.fb.com/MaximusNITT/">Maximus</a>, Math Society of NITT
 @endsection
 
 <!--Javascript for AJAX -->
@@ -103,7 +107,7 @@ $(document).ready(function(){
     		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   			}
 		});
-
+		$("#loading").css('display', 'block');
 	//AJAX for retrieving questions
   		$.ajax({
   			dataType: "json",
@@ -124,13 +128,13 @@ $(document).ready(function(){
 	           	$("#Q5").html("<u><b>Question 5</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][4]['difficulty']+"<br/> "+data['questions'][4]['question']); 
 	           	$("#Q6").html("<u><b>Question 6</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['questions'][5]['difficulty']+"<br/> "+data['questions'][5]['question']);
 
-	           	$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div>'	); 
+	           	$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div><div>Use <a href="http://matrix.reshish.com/multiplication.php">this link</a> to do matrix multiplication!</div>'); 
 	        	
 	        	}
 	        	if(data['status'] == 104){
 	        		
 	        		$("#Q"+data['locked_qpos']).html("<u><b>Question "+data['locked_qpos']+"</b></u><br/><b><u>Difficulty: </u></b>&nbsp"+data['difficulty']+"<br/> "+data['question']);
-	           		$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div>'	);
+	           		$("#Q7").html(data['bonus']+"<br><br>Matrix:<br><div id='matrix'>"+data['output']+'</div><div>Use <a href="http://matrix.reshish.com/multiplication.php">this link</a> to do matrix multiplication!</div>'); 
 
 	  				locked++;
 	        		var i = 1;
@@ -141,7 +145,7 @@ $(document).ready(function(){
 	  					$(id).attr('class','not-active');
 	  				}		
 	        	}
-
+	        	$("#loading").css('display', 'none');
 	        },error:function(){ 
 	            alert("error!");
 	        }
@@ -152,6 +156,7 @@ $(document).ready(function(){
   		var confirm = $('#confirm').val();
   		if(confirm == 'Y'|| confirm == 'y'){
 	  		$('#lock-row').fadeOut();
+	  		$("#loading").css('display', 'block');
 	  		locked++;
 	  		$.ajax({
 	  			dataType: "json",
@@ -164,6 +169,7 @@ $(document).ready(function(){
 		     	},
 		        success:function(data){
 		           //alert('Succesfully Locked!'); 
+		           $("#loading").css('display', 'none');
 		        },error:function(){ 
 		            alert("error!");
 		        }
@@ -183,19 +189,19 @@ $(document).ready(function(){
   	//AJAX to check the answer
   	$('#submit_answer').click(function(){
   		var user_answer = $('#answer_input').val();
-		
+		$("#loading").css('display', 'block');
   		$.ajax({
   			dataType: "json",
 	        url: "{{action('API@request_answer')}}",
 	        type:"POST",
 	        data: {
-	         PID : {{$user_id}},
+	         user_id : {{$user_id}},
 	         day : {{$day}},
 	         qpos : current_question,
 	         answer : user_answer,
 	     	},
 	        success:function(data){
-
+	        	$("#loading").css('display', 'none');
 	            $.toaster({ priority : data['color'], title : '<strong>Message</strong>', message : data['description']}); 
 	        
 	        },error:function(){ 

@@ -26,7 +26,9 @@ class LoginController extends Controller
     public function index(){
         $day = $this->get_day();
         $user_id = Session::get('user_id');
-        return view('sample-layout')->with(['day' => $day,'user_id' => $user_id]);
+        $user_name = User::where('PID',$user_id)->pluck('name');
+        //return $user_name;
+        return view('sample-layout')->with(['day' => $day,'user_id' => $user_id,'user_name' => $user_name]);
     }
 
     
@@ -84,6 +86,7 @@ class LoginController extends Controller
                 $user->prag_pid = $res['data']['user_id'];
                 $user->email = $email;
                 $user->save();
+                $user=User::where('email',$email)->first();
                 Session::put('user_id',$user->PID);
                 return redirect('home');
 
