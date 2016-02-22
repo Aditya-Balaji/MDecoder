@@ -2,7 +2,6 @@
 <html>
 
 <head>
-<<<<<<< HEAD
 	<style>
 	body {
   /* Margin bottom by footer height */
