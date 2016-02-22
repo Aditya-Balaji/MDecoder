@@ -274,21 +274,31 @@ else{
         //Get the question from LockedQuestions table
                                        
         $tries=Tries::where('PID',$request->user_id)->where('BID',$question->BID)->get();
-        $if_answered_bonus = Tries::where('PID',$request->user_id)
-                            ->latest();
-        $if_answered = $if_answered_bonus->BID;
+        
+        //$if_answered_row = Tries::where('PID',$request->user_id)
+        //                        ->latest()
+        //                       ->get();
         
       
-        if(sizeof($tries)>=3 || $if_answered != 0)  
-           {
+        $if_answered = Tries::where('PID',$request->user_id)
+                            ->latest()
+                            ->pluck('BID');
 
+        if($if_answered == 8){
+          $data['status'] = 103;
+          $data['color'] = 'warning';
+          $data['description'] = "Already answered!!";
+          return json_encode($data);
+        }
+
+        elseif(sizeof($tries)>=3)  
+           {
              $data['status'] = 102;
              $data['color'] = 'warning';
-             $data['description'] = "your're outta tries!! :O";
-
+             $data['description'] = "your're outta tries!! b:O";
            }
 
-               else{                                                    
+          else{                                                    
                
 				        $try_count=sizeof($tries)+1;
                 //inserts a new row in tries table
@@ -296,9 +306,12 @@ else{
                 $bonus_try_no=3-$try_count;
                 $try=new Tries;
                 $try->PID=$request->user_id;
-                $try->BID=$question['BID'];
                 $try->answer=$request->answer;
                 $try->bonus_try_no=$bonus_try_no;
+                if($question->sum!=$request->answer)
+                  $try->BID = $question['BID'];
+                else
+                  $try->BID = 8;
                 $try->save();
             
             if(isset($request->day) && isset($request->qpos))

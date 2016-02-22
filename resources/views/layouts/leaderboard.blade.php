@@ -39,7 +39,7 @@
 		text-align: center;
 	}
 	</style>
-	<title>layout</title>
+	<title>Mdecoder-LeaderBoard</title>
 	<meta charset="utf-8">
 
   	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,7 +60,7 @@
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ action('LoginController@index') }}">
                     <span><img src="logo.png" width="100px" height="55px"  style="margin-top:-20px;"></span>
-					<span id="title">Mdecoder</span>
+					<span id="heading">Mdecoder</span>
                 </a>
 
             </div>
