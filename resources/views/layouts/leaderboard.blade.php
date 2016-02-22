@@ -2,53 +2,50 @@
 <html>
 
 <head>
-	<style>
-	body {
-  /* Margin bottom by footer height */
- 	 margin-bottom: 60px;
-  	background-image: url('css/leaderback.jpg');
-  	background-size: 50%;
-  	background-repeat: repeat;
-	}
-	#title{
-			padding-left: 20px;
-			font-family: Audiowide;
-		}
-	#scoreboard{
-		margin-left: 5%;
-		margin-right: 5%;
-		background-color: #778899;
-		border-radius: 20px;
-		opacity: 0.89;
-	}
-	#heading{
-		font-family: Audiowide;
-	}
-	td{
-		padding: 2%;
-	}
-	.footer {
-	  position: absolute;
-	  bottom: 0;
-	  width: 100%;
-	  /* Set the fixed height of the footer here */
-	  height: 60px;
-	  background-color: #084B8A;
-	}
-	#paginate{
-		text-align: center;
-	}
-	</style>
+
 	<title>layout</title>
 	<meta charset="utf-8">
 
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="css/bootstrap.min.css">
-  	
+  	<link rel="stylesheet" href="css/sticky-footer-navbar.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   	<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
-  	
+  	<style>
+  body {
+  /* Margin bottom by footer height */
+   margin-bottom: 60px;
+    background-image: url('css/leaderback.jpg');
+    background-size: 50%;
+    background-repeat: repeat;
+  }
+  #title{
+      padding-left: 20px;
+      font-family: Audiowide;
+    }
+  #scoreboard{
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #778899;
+    border-radius: 20px;
+    opacity: 0.89;
+  }
+  #heading{
+    font-family: Audiowide;
+  }
+  td{
+    padding: 2%;
+  }
+
+  #paginate{
+    text-align: center;
+  }
+
+  .footer{
+    font-family: Audiowide;
+  }
+  </style>
 </head>
 
 <body>
@@ -94,9 +91,8 @@
 	{!! $players->render() !!}	
 	</div>
 
-	<footer class="footer" id="title">
-      <div class="container">
-      <br/>
+	<footer class="footer">
+    <div class="container"> 
         <p class="text-muted" style="text-align:center">Maximus</p>
       </div>
     </footer>
