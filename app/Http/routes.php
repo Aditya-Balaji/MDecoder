@@ -10,10 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+	
 Route::group(['middleware' => 'loggedinauth'], function() {
 	Route::get('/', 'LoginController@create');
 	Route::post('/', 'LoginController@store');
-	
 });
 
 
@@ -21,14 +21,15 @@ Route::group(['middleware' => 'loggedinauth'], function() {
 
 Route::get('/leaderboard','Pages@leaderboard');
 
+	
 Route::group(['middleware' => 'loginauth'], function() {
 	
-Route::get('/logout', 'LoginController@logout');
+	Route::get('/logout', 'LoginController@logout');
 	Route::get('/home','LoginController@index');
-	
 	
 });
 
+	// Route::post('/triesleft','API@tries_available');
 //API routes ...
 Route::group(['middleware' => 'apisessionauth'], function() {
 	
@@ -36,6 +37,5 @@ Route::group(['middleware' => 'apisessionauth'], function() {
 	Route::post('/getquestion','API@request_question');
 	Route::post('/lock','API@lock_question');
 	Route::post('/locked','API@request_locked');
-	// Route::post('/triesleft','API@tries_available');
 });
 

@@ -244,7 +244,7 @@
 			  			<div class="col-sm-4">
 				  			<div class="form-group" id="answer">
 				  				<label for="answer">Answer:</label>
-				  				<input type="number" name="answer" class="form-control" id="answer_input">
+				  				<input type="number" name="answer" class="form-control" id="answer_input" value="0">
 							</div>
 						</div>
 						<div class="col-sm-8">

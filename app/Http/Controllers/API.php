@@ -333,6 +333,12 @@ else{
 
                   $score = $score_initial + 50;
 
+                  $scorelog = new Scorelog;
+                  $scorelog->PID = $request->user_id;
+                  $scorelog->QID = 80 + $this->get_day();
+                  $scorelog->score = $score;
+                  $scorelog->save(); 
+
                   User::where('PID',$request->user_id)
                       ->update(['score' => $score]);
 
@@ -346,9 +352,10 @@ else{
                   $data['status'] = 101;
                   $data['color'] = 'danger';
                   $tries=Tries::where('PID',$request->user_id)
-                              ->where('BID',$question->BID)
+                              ->where('BID',$request->day)
                               ->latest()
                               ->pluck('bonus_try_no');
+
                   $data['description'] = 'Wrong Answer!! :( <br/><h2>Tries: '.$tries.' left!</h2>';
                 
                 }
