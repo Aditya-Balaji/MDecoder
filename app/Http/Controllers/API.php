@@ -266,9 +266,9 @@ if($request->qpos<7)
            
            }
         return json_encode($data);
-      }
+    }
 else{
-        
+              
         $data= [];
         $question=Bonus::where('day',$request->day)->first();
         //Get the question from LockedQuestions table
@@ -284,18 +284,20 @@ else{
                             ->latest()
                             ->pluck('BID');
 
-        if($if_answered == 8){
+        if($if_answered > 80){
+          if($if_answered%10 == $this->get_day()){  
           $data['status'] = 103;
-          $data['color'] = 'warning';
+          $data['color'] = 'info';
           $data['description'] = "Already answered!!";
           return json_encode($data);
+          }
         }
 
         elseif(sizeof($tries)>=3)  
            {
              $data['status'] = 102;
              $data['color'] = 'warning';
-             $data['description'] = "your're outta tries!! b:O";
+             $data['description'] = "your're outta tries!! :O";
            }
 
           else{                                                    
@@ -311,7 +313,7 @@ else{
                 if($question->sum!=$request->answer)
                   $try->BID = $question['BID'];
                 else
-                  $try->BID = 8;
+                  $try->BID = 80+$this->get_day();
                 $try->save();
             
             if(isset($request->day) && isset($request->qpos))
